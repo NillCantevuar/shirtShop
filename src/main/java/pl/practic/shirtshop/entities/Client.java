@@ -4,6 +4,7 @@ package pl.practic.shirtshop.entities;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -21,14 +22,19 @@ public class Client {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "adress_id")
-    private Integer adressId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "adress_id", referencedColumnName = "adress_id")
+    private Adress adress;
 
-    @Column(name = "contact_id")
-    private Integer contactId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "contact_id", referencedColumnName = "contact_id")
+    private Contact contact;
 
     @Column(name = "client_rating")
     private Integer clientRating;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Order> order;
 
 
 }

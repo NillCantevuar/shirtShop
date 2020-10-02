@@ -29,4 +29,7 @@ public class Contact {
 
     @Column(name = "fax")
     private String fax;
+
+    @OneToOne(mappedBy = "contact")
+    private Client client;
 }

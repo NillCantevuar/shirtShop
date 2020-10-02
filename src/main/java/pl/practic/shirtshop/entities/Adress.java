@@ -33,4 +33,7 @@ public class Adress {
     @Column(name = "postal_code")
     private String postalCode;
 
+    @OneToOne(mappedBy = "adress")
+    private Client client;
+
 }
