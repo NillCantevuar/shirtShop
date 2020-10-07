@@ -6,9 +6,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import pl.practic.shirtshop.entities.Contacts;
+import pl.practic.shirtshop.entities.Contact;
 import pl.practic.shirtshop.entities.Customer;
-import pl.practic.shirtshop.repositories.ContactsRepository;
+import pl.practic.shirtshop.repositories.ContactRepository;
 import pl.practic.shirtshop.repositories.CustomerRepository;
 
 import javax.transaction.Transactional;
@@ -16,11 +16,11 @@ import javax.transaction.Transactional;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class ContactsEntityTest {
+public class ContactEntityTest {
 
 
     @Autowired
-    ContactsRepository contactsRepository;
+    ContactRepository contactRepository;
 
     @Autowired
     CustomerRepository customerRepository;
@@ -31,15 +31,16 @@ public class ContactsEntityTest {
         //given
         String www = "www.to.com";
         String phoneNumber1 = "123456789";
-        Contacts contacts = new Contacts();
-        contacts.setWww(www);
-        contacts.setPhoneNumber1(phoneNumber1);
+
+        Contact contact = new Contact();
+        contact.setWww(www);
+        contact.setPhoneNumber1(phoneNumber1);
         //when
-        contactsRepository.save(contacts);
-        Contacts contactsPulled = contactsRepository.getOne(contacts.getId());
+        contactRepository.save(contact);
+        Contact contactPulled = contactRepository.getOne(contact.getId());
         //then
-        Assert.assertEquals(www, contactsPulled.getWww());
-        Assert.assertEquals(phoneNumber1, contactsPulled.getPhoneNumber1());
+        Assert.assertEquals(www, contactPulled.getWww());
+        Assert.assertEquals(phoneNumber1, contactPulled.getPhoneNumber1());
     }
 
     @Test
@@ -48,18 +49,18 @@ public class ContactsEntityTest {
         //given
         String phoneNumber ="123456789";
         String email ="auuu@ww.pl";
-        Contacts contacts = new Contacts();
-        contacts.setEmail(email);
-        contacts.setPhoneNumber2(phoneNumber);
+        Contact contact = new Contact();
+        contact.setEmail(email);
+        contact.setPhoneNumber2(phoneNumber);
 
         Customer customer = new Customer();
-        customer.setContacts(contacts);
+        customer.setContact(contact);
         //when
         customerRepository.save(customer);
-        Contacts contacts2 = contactsRepository.getOne(contacts.getId());
+        Contact contact2 = contactRepository.getOne(contact.getId());
         //then
-        Assert.assertEquals(phoneNumber,contacts2.getPhoneNumber2());
-        Assert.assertEquals(email,contacts2.getEmail());
+        Assert.assertEquals(phoneNumber, contact2.getPhoneNumber2());
+        Assert.assertEquals(email, contact2.getEmail());
 
     }
 
@@ -68,16 +69,16 @@ public class ContactsEntityTest {
     public void shouldAddAndGetContactFromCustomer_FaxCheck(){
         //given
         String fax ="123456789";
-        Contacts contacts = new Contacts();
-        contacts.setFax(fax);
+        Contact contact = new Contact();
+        contact.setFax(fax);
 
         Customer customer = new Customer();
-        customer.setContacts(contacts);
+        customer.setContact(contact);
         //when
         customerRepository.save(customer);
         Customer customer2 = customerRepository.getOne(customer.getId());
         //then
-        Assert.assertEquals(fax,customer2.getContacts().getFax());
+        Assert.assertEquals(fax,customer2.getContact().getFax());
 
 
     }

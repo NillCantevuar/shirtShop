@@ -2,6 +2,7 @@ package pl.practic.shirtshop.entities;
 
 import lombok.Data;
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -24,14 +25,11 @@ public class Customer {
     private Adress adress;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "contacts_id")
-    private Contacts contacts;
-//
-//    @Column(name = "client_rating")
-////    private Integer clientRating;
-//
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "client")
-//    private List<Order> order;
+    @JoinColumn(name = "contact_id")
+    private Contact contact;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
+    private List<Order> order;
 
 
 }

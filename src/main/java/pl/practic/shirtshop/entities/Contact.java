@@ -7,12 +7,12 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "contacts")
-public class Contacts {
+@Table(name = "contact")
+public class Contact {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "contacts_id")
+    @Column(name = "contact_id")
     private Integer id;
 
     @Column(name = "phone_number1")
@@ -30,6 +30,6 @@ public class Contacts {
     @Column(name = "fax")
     private String fax;
 
-    @OneToOne(mappedBy = "contacts")
+    @OneToOne(mappedBy = "contact")
     private Customer customer;
 }
