@@ -2,6 +2,7 @@ package pl.practic.shirtshop.entities;
 
 
 import lombok.Data;
+import pl.practic.shirtshop.enums.ProductType;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,7 +18,7 @@ public class Product {
     private Integer id;
 
     @Column
-    private String type;
+    private ProductType type;
 
     @Column
     private String brand;

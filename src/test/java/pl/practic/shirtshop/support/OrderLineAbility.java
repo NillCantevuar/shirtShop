@@ -20,7 +20,7 @@ public class OrderLineAbility {
 
         orderLine.setQuantity(6);
         orderLine.setOrder(orderAbility.generateOneOrder());
-        orderLine.setProduct(productAbility.generateOneProduct());
+        orderLine.setProduct(productAbility.generateOneProduct1());
 
         return orderLine;
 
