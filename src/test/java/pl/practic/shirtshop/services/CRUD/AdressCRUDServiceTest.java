@@ -7,9 +7,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.practic.shirtshop.entities.Adress;
+import pl.practic.shirtshop.entities.Contact;
 import pl.practic.shirtshop.services.AdressCRUDService;
 import pl.practic.shirtshop.support.AdressAbility;
 
@@ -100,6 +102,16 @@ public class AdressCRUDServiceTest {
 
 
 
+    }
+
+    @Transactional
+    @Test
+    public void shouldThrowExceptionWhenSavingNull(){
+        //given
+        Adress adress = null;
+        //when
+        //then
+        Assert.assertThrows(InvalidDataAccessApiUsageException.class,()-> adressCRUDService.save(adress));
     }
 
 }
