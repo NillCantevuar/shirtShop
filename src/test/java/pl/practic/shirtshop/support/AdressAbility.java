@@ -17,4 +17,16 @@ public class AdressAbility {
 
         return adress;
     }
+
+    public Adress generateSecondAdress(){
+        Adress adress = new Adress();
+        adress.setStreet("Czerwona");
+        adress.setHouseNumber("7");
+        adress.setCity("Kraków");
+        adress.setFlatNumber("1");
+        adress.setPostalCode("44-123");
+        adress.setState("małopolskie");
+
+        return adress;
+    }
 }
