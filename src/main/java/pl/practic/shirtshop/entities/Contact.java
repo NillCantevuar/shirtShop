@@ -2,6 +2,8 @@ package pl.practic.shirtshop.entities;
 
 
 import lombok.Data;
+import pl.practic.shirtshop.dto.AdressDTO;
+import pl.practic.shirtshop.dto.ContactDTO;
 
 import javax.persistence.*;
 
@@ -32,4 +34,22 @@ public class Contact {
 
     @OneToOne(mappedBy = "contact")
     private Customer customer;
+
+    public Contact(Integer id, String phoneNumber1, String phoneNumber2, String email, String www, String fax, Customer customer) {
+    }
+
+    public ContactDTO toDTO() {
+        return new ContactDTO(id,phoneNumber1,phoneNumber2,email,www,fax,customer.getId());
+    }
+
+    public static Contact fromDTO(ContactDTO dto) {
+        return new Contact(dto.getId(),
+                dto.getPhoneNumber1(),
+                dto.getPhoneNumber2(),
+                dto.getEmail(),
+                dto.getWww(),
+                dto.getFax(),
+                null); //TODO
+    }
+
 }

@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class OrderLineEntityTest {
+public class OrderDTOLineEntityTest {
 
     @Autowired
     OrderLineRepository orderLineRepository;

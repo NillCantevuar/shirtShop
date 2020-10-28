@@ -18,7 +18,7 @@ import java.util.Arrays;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class OrderEntityTest {
+public class OrderDTOEntityTest {
 
     @Autowired
     OrderRepository orderRepository;

@@ -1,9 +1,0 @@
-1Stworze adress i contact.
-2Stworze Customera
-3Dodam do customera Adress i Contact
-4Stworze 3 Produkty
-5Stworze Order
-
-
-
-Czy dostane sier z odredLine do Contactu

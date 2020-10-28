@@ -17,6 +17,7 @@ public class AdressCRUDService implements CRUDService<Adress> {
         return adressRepository.getOne(id);
     }
 
+    //Dostaje DTO zapisuje Encje
     @Override
     public int save(Adress adress) {
         adressRepository.save(adress);

@@ -27,7 +27,7 @@ public class ContactCRUDServiceTest {
 
     @Transactional
     @Test
-    public void shouldSaveAndFindContactUsignId_CompareFields(){
+    public void shouldSaveAndFindContactUsignId_CompareFields_CR(){
         //given
         Contact contact = contactAbility.generateOneContact();
         //when
@@ -40,7 +40,7 @@ public class ContactCRUDServiceTest {
 
     @Transactional
     @Test
-    public void shouldThrowExceptionWhenSavingNull(){
+    public void shouldThrowExceptionWhenSavingNull_C(){
         //given
         Contact contact = null;
         //when
@@ -48,14 +48,31 @@ public class ContactCRUDServiceTest {
         Assert.assertThrows(InvalidDataAccessApiUsageException.class,()-> contactCRUDService.save(contact));
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //find not existing throw
-    @Test
-    @Transactional
-    public void shouldThrowExceptionWhenGetingNotExisting(){
-        //given
-        //when
-        //then
-       Assert.assertThrows(EntityNotFoundException.class,() -> contactCRUDService.find(999999999));
-    }
+//    @Test
+//    @Transactional
+//    public void shouldThrowExceptionWhenGetingNotExisting(){
+//        //given
+//        //when
+//        //then
+//       Assert.assertThrows(EntityNotFoundException.class,() -> contactCRUDService.find(999999999));
+//    }
 
 }

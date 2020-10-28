@@ -2,10 +2,14 @@ package pl.practic.shirtshop.entities;
 
 
 import lombok.Data;
+import pl.practic.shirtshop.dto.ContactDTO;
+import pl.practic.shirtshop.dto.CustomerDTO;
+import pl.practic.shirtshop.dto.OrderDTO;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Data
@@ -31,4 +35,22 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderLine> orderLines;
 
+    public Order(Integer id, Customer customer, LocalDateTime dateTime, String status, List<OrderLine> orderLines) {
+    }
+
+    public OrderDTO toDTO() {
+        return new OrderDTO(id, customer.getId(), dateTime,status,
+                orderLines.stream()
+                        .map(OrderLine::getId)
+                        .collect(Collectors.toList()));
+    }
+
+    public static Order fromDTO(OrderDTO dto) {
+        return new Order(dto.getId(),
+                null,//TODO
+                dto.getDateTime(),
+                dto.getStatus(),
+                null);//TODO
+
+    }
 }
