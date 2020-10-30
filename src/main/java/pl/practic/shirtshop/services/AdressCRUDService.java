@@ -6,6 +6,7 @@ import pl.practic.shirtshop.dto.AdressDTO;
 import pl.practic.shirtshop.entities.Adress;
 import pl.practic.shirtshop.interfaces.CRUDService;
 import pl.practic.shirtshop.repositories.AdressRepository;
+import pl.practic.shirtshop.repositories.CustomerRepository;
 
 @Service
 public class AdressCRUDService implements CRUDService<AdressDTO> {
@@ -13,21 +14,21 @@ public class AdressCRUDService implements CRUDService<AdressDTO> {
     @Autowired
     AdressRepository adressRepository;
 
-    //Zwracam DTO
+    @Autowired
+    CustomerRepository customerRepository;
+
     @Override
     public AdressDTO find(int id) {
         Adress adress = adressRepository.getOne(id);
         return adress.toDTO();
     }
 
-    //Dostaje DTO zapisuje Encje
     @Override
     public int save(AdressDTO adress) {
         Adress saved = adressRepository.save(Adress.fromDTO(adress));
         return saved.getId();
     }
 
-    //Dostaje DTO zapisuje Encje
     @Override
     public AdressDTO update(AdressDTO adress, int id) {
         Adress pulledAdress = adressRepository.getOne(id);
@@ -38,10 +39,8 @@ public class AdressCRUDService implements CRUDService<AdressDTO> {
         pulledAdress.setCity(adress.getCity());
         pulledAdress.setHouseNumber(adress.getHouseNumber());
         pulledAdress.setStreet(adress.getStreet());
-        //pulledAdress.setCustomer(adress.getCustomer());
-        //TODO
-        //pobieram Custoomera dzieki danemu Id i dołączam go do obiektu
-         Adress saved = adressRepository.save(pulledAdress);
+        pulledAdress.setCustomer(customerRepository.getOne(adress.getId()));
+        Adress saved = adressRepository.save(pulledAdress);
 
         return saved.toDTO();
     }

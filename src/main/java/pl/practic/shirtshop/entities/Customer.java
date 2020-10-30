@@ -1,26 +1,21 @@
 package pl.practic.shirtshop.entities;
 
 import lombok.Data;
-import org.hibernate.mapping.Array;
-import org.hibernate.mapping.Collection;
-import pl.practic.shirtshop.dto.ContactDTO;
 import pl.practic.shirtshop.dto.CustomerDTO;
 
 import javax.persistence.*;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
 @Entity
-@Table(name="customer")
+@Table(name = "customer")
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
-    private  Integer id;
+    private Integer id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -37,17 +32,17 @@ public class Customer {
     private Contact contact;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
-    private List<Order> order;
+    private List<Order> orders;
 
-    public Customer(Integer id, String firstName, String lastName, Adress adress, Contact contact, List<Order> order) {
+    public Customer(Integer id, String firstName, String lastName, Adress adress, Contact contact, List<Order> orders) {
     }
 
 
     public CustomerDTO toDTO() {
-        return new CustomerDTO(id,firstName,lastName,adress.getId(),contact.getId(),
-                order.stream()
-                        .map(o->o.getId())
-                .collect(Collectors.toList()));
+        return new CustomerDTO(id, firstName, lastName, adress.getId(), contact.getId(),
+                orders.stream()
+                        .map(o -> o.getId())
+                        .collect(Collectors.toList()));
     }
 
     public static Customer fromDTO(CustomerDTO dto) {

@@ -39,7 +39,7 @@ public class Order {
     }
 
     public OrderDTO toDTO() {
-        return new OrderDTO(id, customer.getId(), dateTime,status,
+        return new OrderDTO(id, customer.getId(), dateTime, status,
                 orderLines.stream()
                         .map(OrderLine::getId)
                         .collect(Collectors.toList()));

@@ -39,7 +39,7 @@ public class Contact {
     }
 
     public ContactDTO toDTO() {
-        return new ContactDTO(id,phoneNumber1,phoneNumber2,email,www,fax,customer.getId());
+        return new ContactDTO(id, phoneNumber1, phoneNumber2, email, www, fax, customer.getId());
     }
 
     public static Contact fromDTO(ContactDTO dto) {

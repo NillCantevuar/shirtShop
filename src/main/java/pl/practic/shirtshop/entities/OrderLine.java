@@ -36,7 +36,7 @@ public class OrderLine {
     }
 
     public OrderLineDTO toDTO() {
-        return new OrderLineDTO(id, product.getId(), order.getId(),quantity);
+        return new OrderLineDTO(id, product.getId(), order.getId(), quantity);
     }
 
     public static OrderLine fromDTO(OrderLineDTO dto) {

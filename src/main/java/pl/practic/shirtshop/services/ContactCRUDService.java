@@ -6,6 +6,7 @@ import pl.practic.shirtshop.dto.ContactDTO;
 import pl.practic.shirtshop.entities.Contact;
 import pl.practic.shirtshop.interfaces.CRUDService;
 import pl.practic.shirtshop.repositories.ContactRepository;
+import pl.practic.shirtshop.repositories.CustomerRepository;
 
 @Service
 public class ContactCRUDService implements CRUDService<ContactDTO> {
@@ -13,6 +14,8 @@ public class ContactCRUDService implements CRUDService<ContactDTO> {
     @Autowired
     ContactRepository contactRepository;
 
+    @Autowired
+    CustomerRepository customerRepository;
 
 
     @Override
@@ -22,7 +25,7 @@ public class ContactCRUDService implements CRUDService<ContactDTO> {
 
     @Override
     public int save(ContactDTO contact) {
-         Contact saved = contactRepository.save(Contact.fromDTO(contact));
+        Contact saved = contactRepository.save(Contact.fromDTO(contact));
         return saved.getId();
     }
 
@@ -35,9 +38,8 @@ public class ContactCRUDService implements CRUDService<ContactDTO> {
         pulledContact.setEmail(contact.getEmail());
         pulledContact.setWww(contact.getWww());
         pulledContact.setFax(contact.getFax());
-         // pulledContact.setCustomer(contact.getCustomerId());
-        //TODO
-         Contact saved = contactRepository.save(pulledContact);
+        pulledContact.setCustomer(customerRepository.getOne(contact.getCustomerId()));
+        Contact saved = contactRepository.save(pulledContact);
         return saved.toDTO();
     }
 

@@ -71,14 +71,14 @@ public class OrderDTOEntityTest {
         String status3 = "WAIT";
         order3.setStatus(status3);
         Customer customer = new Customer();
-        customer.setOrder(new ArrayList<Order>(Arrays.asList(order1,order2,order3)));
+        customer.setOrders(new ArrayList<Order>(Arrays.asList(order1,order2,order3)));
 
         //when
         customerRepository.save(customer);
         Customer pulledCustomer = customerRepository.getOne(customer.getId());
         //then
-        Assert.assertEquals(status, pulledCustomer.getOrder().get(0).getStatus());
-        Assert.assertEquals(status2,pulledCustomer.getOrder().get(1).getStatus());
-        Assert.assertEquals(status3,pulledCustomer.getOrder().get(2).getStatus());
+        Assert.assertEquals(status, pulledCustomer.getOrders().get(0).getStatus());
+        Assert.assertEquals(status2,pulledCustomer.getOrders().get(1).getStatus());
+        Assert.assertEquals(status3,pulledCustomer.getOrders().get(2).getStatus());
     }
 }

@@ -1,7 +1,6 @@
 package pl.practic.shirtshop.dto;
 
 
-
 public class ContactDTO {
 
     private Integer id;

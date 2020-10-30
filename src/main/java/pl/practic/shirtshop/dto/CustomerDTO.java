@@ -4,7 +4,7 @@ import java.util.List;
 
 public class CustomerDTO {
 
-    private  Integer id;
+    private Integer id;
 
     private String firstName;
 

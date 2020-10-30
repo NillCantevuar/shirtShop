@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Data
 @Entity
-@Table(name ="product")
+@Table(name = "product")
 public class Product {
 
     @Id
@@ -43,7 +43,7 @@ public class Product {
     }
 
     public ProductDTO toDTO() {
-        return new ProductDTO(id,type,brand,price,name,stock,
+        return new ProductDTO(id, type, brand, price, name, stock,
                 orderLine.stream()
                         .map(OrderLine::getId)
                         .collect(Collectors.toList()));
@@ -52,7 +52,7 @@ public class Product {
     public static Product fromDTO(ProductDTO dto) {
         return new Product(dto.getId(),
                 ProductType.valueOf(dto.getType()),
-               dto.getBrand(),
+                dto.getBrand(),
                 dto.getPrice(),
                 dto.getName(),
                 dto.getStock(),

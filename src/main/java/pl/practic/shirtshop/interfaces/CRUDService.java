@@ -6,8 +6,7 @@ public interface CRUDService<D> {
 
     public int save(D d);
 
-
-    public D update(D d,int id);
+    public D update(D d, int id);
 
     public void delete(int id);
 
