@@ -19,34 +19,34 @@ import javax.transaction.Transactional;
 @RunWith(SpringRunner.class)
 public class ContactCRUDServiceTest {
 
-    @Autowired
-    ContactAbility contactAbility;
-
-    @Autowired
-    ContactCRUDService contactCRUDService;
-
-    @Transactional
-    @Test
-    public void shouldSaveAndFindContactUsignId_CompareFields_CR(){
-        //given
-        Contact contact = contactAbility.generateOneContact();
-        //when
-        contactCRUDService.save(contact);
-        Contact pulledContact = contactCRUDService.find(contact.getId());
-        //then
-        Assert.assertEquals(contact.getPhoneNumber1(),pulledContact.getPhoneNumber1());
-        Assert.assertEquals(contact.getEmail(),pulledContact.getEmail());
-    }
-
-    @Transactional
-    @Test
-    public void shouldThrowExceptionWhenSavingNull_C(){
-        //given
-        Contact contact = null;
-        //when
-        //then
-        Assert.assertThrows(InvalidDataAccessApiUsageException.class,()-> contactCRUDService.save(contact));
-    }
+//    @Autowired
+//    ContactAbility contactAbility;
+//
+//    @Autowired
+//    ContactCRUDService contactCRUDService;
+//
+//    @Transactional
+//    @Test
+//    public void shouldSaveAndFindContactUsignId_CompareFields_CR(){
+//        //given
+//        Contact contact = contactAbility.generateOneContact();
+//        //when
+//        contactCRUDService.save(contact);
+//        Contact pulledContact = contactCRUDService.find(contact.getId());
+//        //then
+//        Assert.assertEquals(contact.getPhoneNumber1(),pulledContact.getPhoneNumber1());
+//        Assert.assertEquals(contact.getEmail(),pulledContact.getEmail());
+//    }
+//
+//    @Transactional
+//    @Test
+//    public void shouldThrowExceptionWhenSavingNull_C(){
+//        //given
+//        Contact contact = null;
+//        //when
+//        //then
+//        Assert.assertThrows(InvalidDataAccessApiUsageException.class,()-> contactCRUDService.save(contact));
+//    }
 
 
 

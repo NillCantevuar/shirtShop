@@ -1,12 +1,13 @@
 package pl.practic.shirtshop.interfaces;
 
-public interface CRUDService<T> {
+public interface CRUDService<D> {
 
-    public T find(int id);
+    public D find(int id);
 
-    public int save(T t);
+    public int save(D d);
 
-    public int update(T t,int id);
+    //todo
+    public int update(D d,int id);
 
     public void delete(int id);
 

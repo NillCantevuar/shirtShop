@@ -43,16 +43,16 @@ public class Product {
     }
 
     public ProductDTO toDTO() {
-        return new ProductDTO(id,type.name(),brand,price,name,stock,
+        return new ProductDTO(id,type,brand,price,name,stock,
                 orderLine.stream()
                         .map(OrderLine::getId)
                         .collect(Collectors.toList()));
     }
 
-    public static Product fromDTO(Product dto) {
+    public static Product fromDTO(ProductDTO dto) {
         return new Product(dto.getId(),
-                dto.getType(),
-                dto.getBrand(),
+                ProductType.valueOf(dto.getType()),
+               dto.getBrand(),
                 dto.getPrice(),
                 dto.getName(),
                 dto.getStock(),

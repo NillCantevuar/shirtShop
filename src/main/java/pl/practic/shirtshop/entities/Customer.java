@@ -39,7 +39,8 @@ public class Customer {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
     private List<Order> order;
 
-
+    public Customer(Integer id, String firstName, String lastName, Adress adress, Contact contact, List<Order> order) {
+    }
 
 
     public CustomerDTO toDTO() {
@@ -49,13 +50,12 @@ public class Customer {
                 .collect(Collectors.toList()));
     }
 
-    public static Contact fromDTO(ContactDTO dto) {
-        return new Contact(dto.getId(),
-                dto.getPhoneNumber1(),
-                dto.getPhoneNumber2(),
-                dto.getEmail(),
-                dto.getWww(),
-                dto.getFax(),
+    public static Customer fromDTO(CustomerDTO dto) {
+        return new Customer(dto.getId(),
+                dto.getFirstName(),
+                dto.getLastName(),
+                null,
+                null,
                 null); //TODO
     }
 
