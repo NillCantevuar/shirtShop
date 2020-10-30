@@ -37,6 +37,9 @@ public class Order {
 
     public Order(Integer id, Customer customer, LocalDateTime dateTime, String status, List<OrderLine> orderLines) {
     }
+    public Order(){
+
+    }
 
     public OrderDTO toDTO() {
         return new OrderDTO(id, customer.getId(), dateTime, status,
@@ -45,12 +48,5 @@ public class Order {
                         .collect(Collectors.toList()));
     }
 
-    public static Order fromDTO(OrderDTO dto) {
-        return new Order(dto.getId(),
-                null,//TODO
-                dto.getDateTime(),
-                dto.getStatus(),
-                null);//TODO
 
-    }
 }

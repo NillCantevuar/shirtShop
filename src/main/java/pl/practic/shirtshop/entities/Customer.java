@@ -36,6 +36,9 @@ public class Customer {
 
     public Customer(Integer id, String firstName, String lastName, Adress adress, Contact contact, List<Order> orders) {
     }
+    public  Customer(){
+
+    }
 
 
     public CustomerDTO toDTO() {
@@ -45,14 +48,7 @@ public class Customer {
                         .collect(Collectors.toList()));
     }
 
-    public static Customer fromDTO(CustomerDTO dto) {
-        return new Customer(dto.getId(),
-                dto.getFirstName(),
-                dto.getLastName(),
-                null,
-                null,
-                null); //TODO
-    }
+
 
 
 }

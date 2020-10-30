@@ -34,17 +34,14 @@ public class OrderLine {
 
     public OrderLine(Integer id, Product product, Order order, Integer quantity) {
     }
+    public OrderLine(){
+
+    }
 
     public OrderLineDTO toDTO() {
         return new OrderLineDTO(id, product.getId(), order.getId(), quantity);
     }
 
-    public static OrderLine fromDTO(OrderLineDTO dto) {
-        return new OrderLine(dto.getId(),
-                null,//TODO
-                null,//TODO
-                dto.getQuantity());//TODO
 
-    }
 
 }

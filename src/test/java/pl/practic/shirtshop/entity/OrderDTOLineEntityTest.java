@@ -20,18 +20,18 @@ public class OrderDTOLineEntityTest {
     @Autowired
     OrderLineRepository orderLineRepository;
 
-    @Test
-    @Transactional
-    public void shouldAddAndGetOrderLineFromDB_quantityCheck() {
-        //given
-        OrderLine orderLine = new OrderLine();
-        int quantity = 3;
-        orderLine.setQuantity(quantity);
-        //when
-        orderLineRepository.save(orderLine);
-        OrderLine pulledOrderLine = orderLineRepository.getOne(orderLine.getId());
-        //then
-        Assert.assertEquals(Optional.of(quantity).get(),pulledOrderLine.getQuantity());
-
-    }
+//    @Test
+//    @Transactional
+//    public void shouldAddAndGetOrderLineFromDB_quantityCheck() {
+//        //given
+//        OrderLine orderLine = new OrderLine();
+//        int quantity = 3;
+//        orderLine.setQuantity(quantity);
+//        //when
+//        orderLineRepository.save(orderLine);
+//        OrderLine pulledOrderLine = orderLineRepository.getOne(orderLine.getId());
+//        //then
+//        Assert.assertEquals(Optional.of(quantity).get(),pulledOrderLine.getQuantity());
+//
+//    }
 }

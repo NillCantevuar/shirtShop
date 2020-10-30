@@ -7,6 +7,7 @@ import pl.practic.shirtshop.entities.OrderLine;
 import pl.practic.shirtshop.entities.Product;
 import pl.practic.shirtshop.enums.ProductType;
 import pl.practic.shirtshop.interfaces.CRUDService;
+import pl.practic.shirtshop.mappers.DTOMapper;
 import pl.practic.shirtshop.repositories.OrderLineRepository;
 import pl.practic.shirtshop.repositories.ProductRepository;
 
@@ -22,19 +23,22 @@ public class ProductCRUDService implements CRUDService<ProductDTO> {
     @Autowired
     OrderLineRepository orderLineRepository;
 
+    @Autowired
+    DTOMapper dtoMapper;
+
     @Override
-    public ProductDTO find(int id) {
+    public ProductDTO find(Integer id) {
         return productRepository.getOne(id).toDTO();
     }
 
     @Override
-    public int save(ProductDTO productDTO) {
-        Product saved = productRepository.save(Product.fromDTO(productDTO));
+    public Integer save(ProductDTO productDTO) {
+        Product saved = productRepository.save(dtoMapper.fromProductDTO(productDTO));
         return saved.getId();
     }
 
     @Override
-    public ProductDTO update(ProductDTO productDTO, int id) {
+    public ProductDTO update(ProductDTO productDTO, Integer id) {
         Product pulledProduct = productRepository.getOne(id);
         pulledProduct.setName(productDTO.getName());
         pulledProduct.setStock(productDTO.getStock());
@@ -47,7 +51,7 @@ public class ProductCRUDService implements CRUDService<ProductDTO> {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
         productRepository.deleteById(id);
     }
 
@@ -57,7 +61,6 @@ public class ProductCRUDService implements CRUDService<ProductDTO> {
         for (Integer i : indexes
         ) {
             orderLines.add(orderLineRepository.getOne(i));
-
         }
         return orderLines;
     }

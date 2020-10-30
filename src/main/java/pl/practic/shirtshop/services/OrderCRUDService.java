@@ -6,6 +6,7 @@ import pl.practic.shirtshop.dto.OrderDTO;
 import pl.practic.shirtshop.entities.Order;
 import pl.practic.shirtshop.entities.OrderLine;
 import pl.practic.shirtshop.interfaces.CRUDService;
+import pl.practic.shirtshop.mappers.DTOMapper;
 import pl.practic.shirtshop.repositories.CustomerRepository;
 import pl.practic.shirtshop.repositories.OrderLineRepository;
 import pl.practic.shirtshop.repositories.OrderRepository;
@@ -21,22 +22,24 @@ public class OrderCRUDService implements CRUDService<OrderDTO> {
     OrderLineRepository orderLineRepository;
     @Autowired
     CustomerRepository customerRepository;
+    @Autowired
+    DTOMapper dtoMapper;
 
     @Override
-    public OrderDTO find(int id) {
+    public OrderDTO find(Integer id) {
         return orderRepository.getOne(id).toDTO();
 
     }
 
     @Override
-    public int save(OrderDTO orderDTO) {
-        Order saved = orderRepository.save(Order.fromDTO(orderDTO));
+    public Integer save(OrderDTO orderDTO) {
+        Order saved = orderRepository.save(dtoMapper.fromOrderDTO(orderDTO));
         return saved.getId();
     }
 
     @Override
-    public OrderDTO update(OrderDTO orderDTO, int id) {
-        final Order pulledOrder = orderRepository.getOne(id);
+    public OrderDTO update(OrderDTO orderDTO, Integer id) {
+         Order pulledOrder = orderRepository.getOne(id);
         pulledOrder.setDateTime(orderDTO.getDateTime());
         pulledOrder.setStatus(orderDTO.getStatus());
         pulledOrder.setCustomer(customerRepository.getOne(orderDTO.getId()));
@@ -46,7 +49,7 @@ public class OrderCRUDService implements CRUDService<OrderDTO> {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
         orderRepository.deleteById(id);
     }
 

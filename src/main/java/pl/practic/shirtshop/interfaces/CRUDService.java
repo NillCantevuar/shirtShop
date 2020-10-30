@@ -2,13 +2,13 @@ package pl.practic.shirtshop.interfaces;
 
 public interface CRUDService<D> {
 
-    public D find(int id);
+    public D find(Integer id);
 
-    public int save(D d);
+    public Integer save(D d);
 
-    public D update(D d, int id);
+    public D update(D d, Integer id);
 
-    public void delete(int id);
+    public void delete(Integer id);
 
 
 }

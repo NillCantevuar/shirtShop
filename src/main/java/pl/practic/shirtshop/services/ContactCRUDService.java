@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.practic.shirtshop.dto.ContactDTO;
 import pl.practic.shirtshop.entities.Contact;
 import pl.practic.shirtshop.interfaces.CRUDService;
+import pl.practic.shirtshop.mappers.DTOMapper;
 import pl.practic.shirtshop.repositories.ContactRepository;
 import pl.practic.shirtshop.repositories.CustomerRepository;
 
@@ -17,21 +18,24 @@ public class ContactCRUDService implements CRUDService<ContactDTO> {
     @Autowired
     CustomerRepository customerRepository;
 
+    @Autowired
+    DTOMapper dtoMapper;
+
 
     @Override
-    public ContactDTO find(int id) {
+    public ContactDTO find(Integer id) {
         return contactRepository.getOne(id).toDTO();
     }
 
     @Override
-    public int save(ContactDTO contact) {
-        Contact saved = contactRepository.save(Contact.fromDTO(contact));
+    public Integer save(ContactDTO contact) {
+        Contact saved = contactRepository.save(dtoMapper.fromContactDTO(contact));
         return saved.getId();
     }
 
 
     @Override
-    public ContactDTO update(ContactDTO contact, int id) {
+    public ContactDTO update(ContactDTO contact, Integer id) {
         Contact pulledContact = contactRepository.getOne(id);
         pulledContact.setPhoneNumber1(contact.getPhoneNumber1());
         pulledContact.setPhoneNumber2(contact.getPhoneNumber2());
@@ -44,7 +48,7 @@ public class ContactCRUDService implements CRUDService<ContactDTO> {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
         contactRepository.deleteById(id);
     }
 

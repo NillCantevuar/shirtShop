@@ -46,21 +46,12 @@ public class Adress {
         this.postalCode = postalCode;
         this.customer = customer;
     }
+    public Adress(){
 
+    }
 
     public AdressDTO toDTO() {
         return new AdressDTO(id, street, houseNumber, flatNumber, city, state, postalCode, customer.getId());
     }
 
-
-    public static Adress fromDTO(AdressDTO dto) {
-        return new Adress(dto.getId(),
-                dto.getStreet(),
-                dto.getHouseNumber(),
-                dto.getFlatNumber(),
-                dto.getCity(),
-                dto.getState(),
-                dto.getPostalCode(),
-                null); //TODO
-    }
 }

@@ -37,19 +37,14 @@ public class Contact {
 
     public Contact(Integer id, String phoneNumber1, String phoneNumber2, String email, String www, String fax, Customer customer) {
     }
+    public Contact (){
+
+    }
 
     public ContactDTO toDTO() {
         return new ContactDTO(id, phoneNumber1, phoneNumber2, email, www, fax, customer.getId());
     }
 
-    public static Contact fromDTO(ContactDTO dto) {
-        return new Contact(dto.getId(),
-                dto.getPhoneNumber1(),
-                dto.getPhoneNumber2(),
-                dto.getEmail(),
-                dto.getWww(),
-                dto.getFax(),
-                null); //TODO
-    }
+
 
 }

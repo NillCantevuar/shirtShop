@@ -1,6 +1,7 @@
 package pl.practic.shirtshop.support;
 
 import org.springframework.stereotype.Component;
+import pl.practic.shirtshop.dto.ProductDTO;
 import pl.practic.shirtshop.entities.Product;
 import pl.practic.shirtshop.enums.ProductType;
 
@@ -34,6 +35,36 @@ public class ProductAbility {
         product.setPrice(10000);
         product.setStock(97);
         product.setType(ProductType.BELT);
+
+        return product;
+    }
+    public ProductDTO generateOneProduct1DTO(){
+        ProductDTO product = new ProductDTO();
+        product.setBrand("Croop");
+        product.setName("Tropico");
+        product.setPrice(5000);
+        product.setStock(55);
+        product.setType(ProductType.TSHIRT.name());
+
+        return product;
+    }
+    public ProductDTO generateOneProduct2DTO(){
+        ProductDTO product = new ProductDTO();
+        product.setBrand("Vans");
+        product.setName("Warmy");
+        product.setPrice(50000);
+        product.setStock(11);
+        product.setType(ProductType.BLOUSE.name());
+
+        return product;
+    }
+    public ProductDTO generateOneProduct3DTO(){
+        ProductDTO product = new ProductDTO();
+        product.setBrand("Swanson");
+        product.setName("Leather-B20");
+        product.setPrice(10000);
+        product.setStock(97);
+        product.setType(ProductType.BELT.name());
 
         return product;
     }

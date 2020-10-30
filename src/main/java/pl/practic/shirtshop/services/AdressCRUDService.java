@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.practic.shirtshop.dto.AdressDTO;
 import pl.practic.shirtshop.entities.Adress;
 import pl.practic.shirtshop.interfaces.CRUDService;
+import pl.practic.shirtshop.mappers.DTOMapper;
 import pl.practic.shirtshop.repositories.AdressRepository;
 import pl.practic.shirtshop.repositories.CustomerRepository;
 
@@ -17,20 +18,23 @@ public class AdressCRUDService implements CRUDService<AdressDTO> {
     @Autowired
     CustomerRepository customerRepository;
 
+    @Autowired
+    DTOMapper dtoMapper;
+
     @Override
-    public AdressDTO find(int id) {
+    public AdressDTO find(Integer id) {
         Adress adress = adressRepository.getOne(id);
         return adress.toDTO();
     }
 
     @Override
-    public int save(AdressDTO adress) {
-        Adress saved = adressRepository.save(Adress.fromDTO(adress));
+    public Integer save(AdressDTO adress) {
+        Adress saved = adressRepository.save(dtoMapper.fromAdressDTO(adress));
         return saved.getId();
     }
 
     @Override
-    public AdressDTO update(AdressDTO adress, int id) {
+    public AdressDTO update(AdressDTO adress, Integer id) {
         Adress pulledAdress = adressRepository.getOne(id);
 
         pulledAdress.setState(adress.getState());
@@ -46,7 +50,7 @@ public class AdressCRUDService implements CRUDService<AdressDTO> {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Integer id) {
         adressRepository.deleteById(id);
     }
 }

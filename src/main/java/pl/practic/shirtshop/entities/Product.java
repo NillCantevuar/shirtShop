@@ -39,7 +39,10 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<OrderLine> orderLine;
 
-    public Product(Integer id, ProductType type, String brand, Integer price, String name, Integer stock, Object o) {
+    public Product(Integer id, ProductType type, String brand, Integer price, String name, Integer stock, List<OrderLine> orderLines) {
+    }
+    public Product(){
+
     }
 
     public ProductDTO toDTO() {
@@ -49,13 +52,5 @@ public class Product {
                         .collect(Collectors.toList()));
     }
 
-    public static Product fromDTO(ProductDTO dto) {
-        return new Product(dto.getId(),
-                ProductType.valueOf(dto.getType()),
-                dto.getBrand(),
-                dto.getPrice(),
-                dto.getName(),
-                dto.getStock(),
-                null); //TODO
-    }
+
 }
