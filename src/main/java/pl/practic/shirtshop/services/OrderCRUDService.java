@@ -25,15 +25,15 @@ public class OrderCRUDService implements CRUDService<OrderDTO> {
     }
 
     @Override
-    public int update(OrderDTO orderDTO, int id) {
+    public OrderDTO update(OrderDTO orderDTO, int id) {
         final Order pulledOrder = orderRepository.getOne(id);
         pulledOrder.setDateTime(orderDTO.getDateTime());
         pulledOrder.setStatus(orderDTO.getStatus());
         pulledOrder.setCustomer(null); //todo
         pulledOrder.setOrderLines(null); //todo
-        orderRepository.save(pulledOrder);
+        Order saved = orderRepository.save(pulledOrder);
 
-        return 0; //todo
+        return saved.toDTO();
     }
 
     @Override

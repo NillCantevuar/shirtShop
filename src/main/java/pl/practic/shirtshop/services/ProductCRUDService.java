@@ -21,12 +21,12 @@ public class ProductCRUDService implements CRUDService<ProductDTO> {
 
     @Override
     public int save(ProductDTO productDTO) {
-         Product saved = productRepository.save(Product.fromDTO(productDTO));
+        Product saved = productRepository.save(Product.fromDTO(productDTO));
         return saved.getId();
     }
 
     @Override
-    public int update(ProductDTO productDTO, int id) {
+    public ProductDTO update(ProductDTO productDTO, int id) {
         Product pulledProduct = productRepository.getOne(id);
         pulledProduct.setName(productDTO.getName());
         pulledProduct.setStock(productDTO.getStock());
@@ -35,12 +35,12 @@ public class ProductCRUDService implements CRUDService<ProductDTO> {
         pulledProduct.setType(ProductType.valueOf(productDTO.getType()));
         //todo
         pulledProduct.setOrderLine(null);
-        //todo
-        return 0;
+        Product saved = productRepository.save(pulledProduct);
+        return saved.toDTO();
     }
 
     @Override
     public void delete(int id) {
-    productRepository.deleteById(id);
+        productRepository.deleteById(id);
     }
 }

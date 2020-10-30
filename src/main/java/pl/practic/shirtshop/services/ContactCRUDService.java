@@ -28,7 +28,7 @@ public class ContactCRUDService implements CRUDService<ContactDTO> {
 
 
     @Override
-    public int update(ContactDTO contact, int id) {
+    public ContactDTO update(ContactDTO contact, int id) {
         Contact pulledContact = contactRepository.getOne(id);
         pulledContact.setPhoneNumber1(contact.getPhoneNumber1());
         pulledContact.setPhoneNumber2(contact.getPhoneNumber2());
@@ -37,8 +37,8 @@ public class ContactCRUDService implements CRUDService<ContactDTO> {
         pulledContact.setFax(contact.getFax());
          // pulledContact.setCustomer(contact.getCustomerId());
         //TODO
-        contactRepository.save(pulledContact);
-        return 0;
+         Contact saved = contactRepository.save(pulledContact);
+        return saved.toDTO();
     }
 
     @Override

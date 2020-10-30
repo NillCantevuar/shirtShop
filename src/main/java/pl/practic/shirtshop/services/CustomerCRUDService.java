@@ -6,6 +6,7 @@ import pl.practic.shirtshop.dto.CustomerDTO;
 import pl.practic.shirtshop.entities.Customer;
 import pl.practic.shirtshop.interfaces.CRUDService;
 import pl.practic.shirtshop.repositories.CustomerRepository;
+
 @Service
 public class CustomerCRUDService implements CRUDService<CustomerDTO> {
 
@@ -25,17 +26,17 @@ public class CustomerCRUDService implements CRUDService<CustomerDTO> {
     }
 
     @Override
-    public int update(CustomerDTO customerDTO, int id) {
+    public CustomerDTO update(CustomerDTO customerDTO, int id) {
         Customer pulledCustomer = customerRepository.getOne(id);
         pulledCustomer.setFirstName(customerDTO.getFirstName());
         pulledCustomer.setLastName(customerDTO.getLastName());
-//        pulledCustomer.setAdress(customerDTO.getAdressId());
-//        pulledCustomer.setContact(customerDTO.getContactId());
-//        pulledCustomer.setOrder(customerDTO.getOrderId());
+        pulledCustomer.setAdress(null);
+        pulledCustomer.setContact(null);
+        pulledCustomer.setOrder(null);
         //todo
-
+        Customer saved = customerRepository.save(pulledCustomer);
         //todo
-        return 0;
+        return saved.toDTO();
     }
 
     @Override

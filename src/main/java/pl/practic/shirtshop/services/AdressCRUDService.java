@@ -29,7 +29,7 @@ public class AdressCRUDService implements CRUDService<AdressDTO> {
 
     //Dostaje DTO zapisuje Encje
     @Override
-    public int update(AdressDTO adress, int id) {
+    public AdressDTO update(AdressDTO adress, int id) {
         Adress pulledAdress = adressRepository.getOne(id);
 
         pulledAdress.setState(adress.getState());
@@ -41,9 +41,9 @@ public class AdressCRUDService implements CRUDService<AdressDTO> {
         //pulledAdress.setCustomer(adress.getCustomer());
         //TODO
         //pobieram Custoomera dzieki danemu Id i dołączam go do obiektu
-        adressRepository.save(pulledAdress);
+         Adress saved = adressRepository.save(pulledAdress);
 
-        return pulledAdress.getId();
+        return saved.toDTO();
     }
 
     @Override
