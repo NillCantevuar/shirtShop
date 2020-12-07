@@ -19,22 +19,22 @@ public class ProductEntityTest {
     @Autowired
     ProductRepository productRepository;
 
-//    @Test
-//    @Transactional
-//    public void shouldAddAndGetProductFromDB_brandTypeCheck() {
-//        //given
-//        Product product = new Product();
-//        String brand = "crop";
-//        ProductType type = ProductType.TSHIRT;
-//        product.setBrand(brand);
-//        product.setType(type);
-//        //when
-//        productRepository.save(product);
-//        Product pulledProduct = productRepository.getOne(product.getId());
-//        //then
-//        Assert.assertEquals(brand,pulledProduct.getBrand());
-//        Assert.assertEquals(type,pulledProduct.getType());
-//
-//    }
+    @Test
+    @Transactional
+    public void shouldAddAndGetProductFromDB_brandTypeCheck() {
+        //given
+        Product product = new Product();
+        String brand = "crop";
+        ProductType type = ProductType.TSHIRT;
+        product.setBrand(brand);
+        product.setType(type);
+        //when
+        productRepository.save(product);
+        Product pulledProduct = productRepository.getOne(product.getId());
+        //then
+        Assert.assertEquals(brand,pulledProduct.getBrand());
+        Assert.assertEquals(type,pulledProduct.getType());
+
+    }
 
 }

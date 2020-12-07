@@ -10,8 +10,10 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.test.context.junit4.SpringRunner;
+import pl.practic.shirtshop.dto.AdressDTO;
 import pl.practic.shirtshop.entities.Adress;
 import pl.practic.shirtshop.entities.Contact;
+import pl.practic.shirtshop.mappers.DTOMapper;
 import pl.practic.shirtshop.services.AdressCRUDService;
 import pl.practic.shirtshop.support.AdressAbility;
 
@@ -23,11 +25,13 @@ import javax.transaction.Transactional;
 public class AdressCRUDServiceTest {
 
 
-//    @Autowired
-//    AdressCRUDService adressCRUDService;
-//    @Autowired
-//    AdressAbility adressAbility;
-//
+    @Autowired
+    AdressCRUDService adressCRUDService;
+    @Autowired
+    AdressAbility adressAbility;
+    @Autowired
+    DTOMapper dtoMapper;
+
 //    @Transactional
 //    @Test
 //    public void shouldThrowExceptionWhenSavingNull_C() {
@@ -38,18 +42,20 @@ public class AdressCRUDServiceTest {
 //        Assert.assertThrows(InvalidDataAccessApiUsageException.class, () -> adressCRUDService.save(adress));
 //    }
 //
-//    @Test
-//    @Transactional
-//    public void shouldSaveAndFindAdressUsignId_CompareFields_CR() {
-//        //given
-//        Adress adress = adressAbility.generateOneAdress();
-//        //when
-//        adressCRUDService.save(adress);
-//        Adress pulledAdress = adressCRUDService.find(adress.getId());
-//        //then
-//        Assert.assertEquals(adress.getCity(), pulledAdress.getCity());
-//        Assert.assertEquals(adress.getStreet(), pulledAdress.getStreet());
-//    }
+    @Test
+    @Transactional
+    public void shouldSaveAndFindAdressUsignId_CompareFields_CR() {
+        //given
+        AdressDTO adress = adressAbility.generateOneAdressDTO();
+        //when
+        Integer IdOfSaved = adressCRUDService.save(adress);
+        AdressDTO pulledAdress = adressCRUDService.find(IdOfSaved);
+
+        //then
+        Assert.assertEquals(adress.getCity(), pulledAdress.getCity());
+        Assert.assertEquals(adress.getStreet(), pulledAdress.getStreet());
+        Assert.assertEquals(adress.getCustomerId(),pulledAdress.getCustomerId());
+    }
 //
 //    @Test
 //    @Transactional

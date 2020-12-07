@@ -36,8 +36,8 @@ public class Adress {
     @OneToOne(mappedBy = "adress")
     private Customer customer;
 
-    public Adress(Integer id, String street, String houseNumber, String flatNumber, String city, String state, String postalCode, Customer customer) {
-        this.id = id;
+    public Adress(String street, String houseNumber, String flatNumber, String city, String state, String postalCode, Customer customer) {
+
         this.street = street;
         this.houseNumber = houseNumber;
         this.flatNumber = flatNumber;
@@ -51,7 +51,10 @@ public class Adress {
     }
 
     public AdressDTO toDTO() {
-        return new AdressDTO(id, street, houseNumber, flatNumber, city, state, postalCode, customer.getId());
+        if (customer != null) {
+            return new AdressDTO(id, street, houseNumber, flatNumber, city, state, postalCode, customer.getId());
+        }
+        return new AdressDTO(id, street, houseNumber, flatNumber, city, state, postalCode, null);
     }
 
 }

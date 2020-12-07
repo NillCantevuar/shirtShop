@@ -27,14 +27,25 @@ public class DTOMapper {
     ProductRepository productRepository;
 
     public Adress fromAdressDTO(AdressDTO dto) {
-        return new Adress(dto.getId(),
+        //if customer exist
+        if (dto.getCustomerId() != null) {
+            return new Adress(
+                    dto.getStreet(),
+                    dto.getHouseNumber(),
+                    dto.getFlatNumber(),
+                    dto.getCity(),
+                    dto.getState(),
+                    dto.getPostalCode(),
+                    customerRepository.getOne(dto.getCustomerId()));
+        }
+        return new Adress(
                 dto.getStreet(),
                 dto.getHouseNumber(),
                 dto.getFlatNumber(),
                 dto.getCity(),
                 dto.getState(),
                 dto.getPostalCode(),
-                customerRepository.getOne(dto.getCustomerId()));
+                null);
     }
 
     public  Contact fromContactDTO(ContactDTO dto) {

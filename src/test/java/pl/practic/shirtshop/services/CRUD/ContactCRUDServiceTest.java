@@ -19,12 +19,12 @@ import javax.transaction.Transactional;
 @RunWith(SpringRunner.class)
 public class ContactCRUDServiceTest {
 
-//    @Autowired
-//    ContactAbility contactAbility;
-//
-//    @Autowired
-//    ContactCRUDService contactCRUDService;
-//
+    @Autowired
+    ContactAbility contactAbility;
+
+    @Autowired
+    ContactCRUDService contactCRUDService;
+
 //    @Transactional
 //    @Test
 //    public void shouldSaveAndFindContactUsignId_CompareFields_CR(){
