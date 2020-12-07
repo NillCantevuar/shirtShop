@@ -54,5 +54,5 @@ public class AdressControllerTest {
     }
 
 
-    // 2. powinien sie wyjebac jak dodam nulla
+
 }
