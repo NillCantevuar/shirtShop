@@ -14,18 +14,18 @@ public class CustomerDTO {
 
     private Integer contactId;
 
-    private List<Integer> orderId;
+    private List<Integer> ordersId;
 
     public CustomerDTO() {
     }
 
-    public CustomerDTO(Integer id, String firstName, String lastName, Integer adressId, Integer contactId, List<Integer> orderId) {
+    public CustomerDTO(Integer id, String firstName, String lastName, Integer adressId, Integer contactId, List<Integer> ordersId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.adressId = adressId;
         this.contactId = contactId;
-        this.orderId = orderId;
+        this.ordersId = ordersId;
     }
 
     public Integer getId() {
@@ -68,11 +68,11 @@ public class CustomerDTO {
         this.contactId = contactId;
     }
 
-    public List<Integer> getOrderId() {
-        return orderId;
+    public List<Integer> getOrdersId() {
+        return ordersId;
     }
 
-    public void setOrderId(List<Integer> orderId) {
-        this.orderId = orderId;
+    public void setOrdersId(List<Integer> ordersId) {
+        this.ordersId = ordersId;
     }
 }

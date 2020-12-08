@@ -58,13 +58,32 @@ public class DTOMapper {
                 customerRepository.getOne(dto.getCustomerId()));
     }
     public  Customer fromCustomerDTO(CustomerDTO dto) {
-        return new Customer(dto.getId(),
+
+            Adress adress = null;
+            Contact contact = null;
+            List<Order> orders = null;
+
+            if (dto.getAdressId() != null){
+                adress = adressRepository.getOne(dto.getAdressId());
+            }
+            if (dto.getContactId() != null){
+                contact = contactRepository.getOne(dto.getContactId());
+            }
+            if (dto.getOrdersId() != null ){
+                if (!dto.getOrdersId().isEmpty()) {
+                    orders = fillOrdersList(dto.getOrdersId());
+                }
+            }
+
+        return new Customer(
                 dto.getFirstName(),
                 dto.getLastName(),
-                adressRepository.getOne(dto.getAdressId()),
-                contactRepository.getOne(dto.getContactId()),
-                fillOrdersList(dto.getOrderId()));
+                adress,
+                contact,
+                orders);
     }
+
+
     public  Order fromOrderDTO(OrderDTO dto) {
         return new Order(dto.getId(),
                 customerRepository.getOne(dto.getCustomerId()),

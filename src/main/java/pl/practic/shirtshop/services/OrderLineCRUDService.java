@@ -37,13 +37,13 @@ public class OrderLineCRUDService implements CRUDService<OrderLineDTO> {
     }
 
     @Override
-    public OrderLineDTO update(OrderLineDTO orderLineDTO, Integer id) {
+    public Integer update(OrderLineDTO orderLineDTO, Integer id) {
         OrderLine pulledOrderLine = orderLineRepository.getOne(id);
         pulledOrderLine.setQuantity(orderLineDTO.getQuantity());
         pulledOrderLine.setOrder(orderRepository.getOne(orderLineDTO.getOrderId()));
         pulledOrderLine.setProduct(productRepository.getOne(orderLineDTO.getProductId()));
-        OrderLine saved = orderLineRepository.save(pulledOrderLine);
-        return saved.toDTO();
+        orderLineRepository.save(pulledOrderLine);
+        return id;
     }
 
     @Override

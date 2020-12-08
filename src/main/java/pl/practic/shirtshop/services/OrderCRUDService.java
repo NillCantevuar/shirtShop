@@ -38,14 +38,14 @@ public class OrderCRUDService implements CRUDService<OrderDTO> {
     }
 
     @Override
-    public OrderDTO update(OrderDTO orderDTO, Integer id) {
+    public Integer update(OrderDTO orderDTO, Integer id) {
          Order pulledOrder = orderRepository.getOne(id);
         pulledOrder.setDateTime(orderDTO.getDateTime());
         pulledOrder.setStatus(orderDTO.getStatus());
         pulledOrder.setCustomer(customerRepository.getOne(orderDTO.getId()));
         pulledOrder.setOrderLines(fillOrderLinesList(orderDTO.getOrderLinesId()));
-        Order saved = orderRepository.save(pulledOrder);
-        return saved.toDTO();
+        orderRepository.save(pulledOrder);
+        return id;
     }
 
     @Override

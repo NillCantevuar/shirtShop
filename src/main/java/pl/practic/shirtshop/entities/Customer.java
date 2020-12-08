@@ -34,7 +34,13 @@ public class Customer {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
     private List<Order> orders;
 
-    public Customer(Integer id, String firstName, String lastName, Adress adress, Contact contact, List<Order> orders) {
+    public Customer(String firstName, String lastName, Adress adress, Contact contact, List<Order> orders) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.adress = adress;
+        this.contact = contact;
+        this.orders = orders;
+
     }
     public  Customer(){
 

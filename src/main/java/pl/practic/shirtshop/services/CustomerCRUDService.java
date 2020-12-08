@@ -43,15 +43,15 @@ public class CustomerCRUDService implements CRUDService<CustomerDTO> {
     }
 
     @Override
-    public CustomerDTO update(CustomerDTO customerDTO, Integer id) {
+    public Integer update(CustomerDTO customerDTO, Integer id) {
         Customer pulledCustomer = customerRepository.getOne(id);
         pulledCustomer.setFirstName(customerDTO.getFirstName());
         pulledCustomer.setLastName(customerDTO.getLastName());
         pulledCustomer.setAdress(adressRepository.getOne(customerDTO.getAdressId()));
         pulledCustomer.setContact(contactRepository.getOne(customerDTO.getContactId()));
-        pulledCustomer.setOrders(fillOrdersList(customerDTO.getOrderId()));
-        Customer saved = customerRepository.save(pulledCustomer);
-        return saved.toDTO();
+        pulledCustomer.setOrders(fillOrdersList(customerDTO.getOrdersId()));
+        customerRepository.save(pulledCustomer);
+        return id;
     }
 
     @Override

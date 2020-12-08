@@ -34,19 +34,33 @@ public class AdressCRUDService implements CRUDService<AdressDTO> {
     }
 
     @Override
-    public AdressDTO update(AdressDTO adress, Integer id) {
-        Adress pulledAdress = adressRepository.getOne(id);
+    public Integer update(AdressDTO adress, Integer id) {
+        Adress toUpadateAdress = adressRepository.getOne(id);
 
-        pulledAdress.setState(adress.getState());
-        pulledAdress.setPostalCode(adress.getPostalCode());
-        pulledAdress.setFlatNumber(adress.getFlatNumber());
-        pulledAdress.setCity(adress.getCity());
-        pulledAdress.setHouseNumber(adress.getHouseNumber());
-        pulledAdress.setStreet(adress.getStreet());
-        pulledAdress.setCustomer(customerRepository.getOne(adress.getId()));
-        Adress saved = adressRepository.save(pulledAdress);
+        if ( adress.getCustomerId() != null) {
+            toUpadateAdress.setState(adress.getState());
+            toUpadateAdress.setPostalCode(adress.getPostalCode());
+            toUpadateAdress.setFlatNumber(adress.getFlatNumber());
+            toUpadateAdress.setCity(adress.getCity());
+            toUpadateAdress.setHouseNumber(adress.getHouseNumber());
+            toUpadateAdress.setStreet(adress.getStreet());
+            toUpadateAdress.setCustomer(customerRepository.getOne(adress.getId()));
+            adressRepository.save(toUpadateAdress);
+            return id;
 
-        return saved.toDTO();
+        }
+
+        toUpadateAdress.setState(adress.getState());
+        toUpadateAdress.setPostalCode(adress.getPostalCode());
+        toUpadateAdress.setFlatNumber(adress.getFlatNumber());
+        toUpadateAdress.setCity(adress.getCity());
+        toUpadateAdress.setHouseNumber(adress.getHouseNumber());
+        toUpadateAdress.setStreet(adress.getStreet());
+        toUpadateAdress.setCustomer(null);
+        adressRepository.save(toUpadateAdress);
+        return id;
+
+
     }
 
     @Override
