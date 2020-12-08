@@ -35,4 +35,24 @@ public class CustomerAbility {
         return customer;
 
     }
+    public Customer generateSecondCustomer(){
+
+        Customer customer = new Customer();
+        customer.setFirstName("Pierre-Emile");
+        customer.setLastName("Hojbjerg");
+        customer.setContact(contactAbility.generateOneContact());
+        customer.setAdress(adressAbility.generateOneAdress());
+        return customer;
+
+    }
+    public CustomerDTO generateSecondCustomerDTO(){
+
+        CustomerDTO customer = new CustomerDTO();
+        customer.setFirstName("Pierre-Emile");
+        customer.setLastName("Hojbjerg");
+        customer.setContactId(contactAbility.generateOneContact().getId());
+        customer.setAdressId(adressAbility.generateOneAdress().getId());
+        return customer;
+
+    }
 }

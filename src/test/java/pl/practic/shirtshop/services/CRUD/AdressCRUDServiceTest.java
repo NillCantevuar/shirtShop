@@ -101,7 +101,7 @@ public class AdressCRUDServiceTest {
         Integer savedId = adressCRUDService.save(adress);
         //when
         Integer updateId = adressCRUDService.update(updatingAdress,savedId);
-        AdressDTO pulledAdress = adressCRUDService.find(updateId);
+        AdressDTO pulledAdress = adressCRUDService.find(savedId);
         //then
         Assert.assertEquals(updatingAdress.getFlatNumber(), pulledAdress.getFlatNumber());
     }
@@ -120,7 +120,7 @@ public class AdressCRUDServiceTest {
         //when
         Integer updateId = adressCRUDService.update(updatingAdress,savedId);
 
-        AdressDTO pulledAdress = adressCRUDService.find(updateId);
+        AdressDTO pulledAdress = adressCRUDService.find(savedId);
         //then
         Assert.assertEquals(updatingAdress.getFlatNumber(), pulledAdress.getFlatNumber());
 

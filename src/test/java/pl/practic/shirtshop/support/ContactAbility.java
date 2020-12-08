@@ -28,4 +28,25 @@ public class ContactAbility {
         contact.setPhoneNumber2("987654321");
         return contact;
     }
+    public Contact generateSecondContact(){
+
+        Contact contact = new Contact();
+        contact.setPhoneNumber1("987654321");
+        contact.setWww("www.lkas.com");
+        contact.setEmail("cyyyyyyy@gmail.com");
+        contact.setFax("11111111");
+        contact.setPhoneNumber2("555555555");
+        return contact;
+    }
+
+    public ContactDTO generateSecondContactDTO(){
+
+        ContactDTO contact = new ContactDTO();
+        contact.setPhoneNumber1("987654321");
+        contact.setWww("www.lkas.com");
+        contact.setEmail("cyyyyyyy@gmail.com");
+        contact.setFax("11111111");
+        contact.setPhoneNumber2("555555555");
+        return contact;
+    }
 }
