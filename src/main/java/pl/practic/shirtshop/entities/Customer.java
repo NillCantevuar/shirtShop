@@ -48,10 +48,26 @@ public class Customer {
 
 
     public CustomerDTO toDTO() {
-        return new CustomerDTO(id, firstName, lastName, adress.getId(), contact.getId(),
-                orders.stream()
+
+        Integer adressId = null;
+        Integer contactId = null;
+        List<Integer> ordersIds = null;
+
+        if(adress!=null){
+            adressId= adress.getId();
+        }
+        if(contact!=null){
+            contactId = contact.getId();
+        }
+        if (orders !=null){
+            if(!orders.isEmpty()){
+                ordersIds = orders.stream()
                         .map(o -> o.getId())
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList());
+            }
+        }
+        return new CustomerDTO(id, firstName, lastName, adressId, contactId,
+                ordersIds);
     }
 
 

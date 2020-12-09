@@ -12,10 +12,6 @@ import pl.practic.shirtshop.dto.AdressDTO;
 import pl.practic.shirtshop.dto.ContactDTO;
 import pl.practic.shirtshop.dto.CustomerDTO;
 import pl.practic.shirtshop.mappers.DTOMapper;
-import pl.practic.shirtshop.repositories.AdressRepository;
-import pl.practic.shirtshop.repositories.ContactRepository;
-import pl.practic.shirtshop.repositories.CustomerRepository;
-import pl.practic.shirtshop.repositories.OrderRepository;
 import pl.practic.shirtshop.services.AdressCRUDService;
 import pl.practic.shirtshop.services.ContactCRUDService;
 import pl.practic.shirtshop.services.CustomerCRUDService;
@@ -234,10 +230,8 @@ public class CustomerCRUDServiceTest {
         Assert.assertThrows(JpaObjectRetrievalFailureException.class, () -> adressCRUDService.find(adressDTOId));
         Assert.assertThrows(JpaObjectRetrievalFailureException.class, () -> contactCRUDService.find(contactDTOId));
         Assert.assertThrows(JpaObjectRetrievalFailureException.class, ()-> customerCRUDService.find(savedCustomerDTOId));
-        //Ze Customera nie ma w bazie
-        //Ze Adresu nie ma w bazie
-        //Ze Contact nie ma w bazie
 
+        //Nie jestem tego taki pewny
 
 
 

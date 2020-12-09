@@ -3,6 +3,8 @@ package pl.practic.shirtshop.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.practic.shirtshop.dto.CustomerDTO;
+import pl.practic.shirtshop.entities.Adress;
+import pl.practic.shirtshop.entities.Contact;
 import pl.practic.shirtshop.entities.Customer;
 import pl.practic.shirtshop.entities.Order;
 import pl.practic.shirtshop.interfaces.CRUDService;
@@ -44,12 +46,28 @@ public class CustomerCRUDService implements CRUDService<CustomerDTO> {
 
     @Override
     public Integer update(CustomerDTO customerDTO, Integer id) {
+
+        Adress adress = null;
+        Contact contact =null;
+        List<Order> orders = null;
         Customer pulledCustomer = customerRepository.getOne(id);
+        if (customerDTO.getAdressId() != null){
+            adress = adressRepository.getOne(customerDTO.getAdressId());
+        }
+        if (customerDTO.getContactId() != null){
+            contact = contactRepository.getOne(customerDTO.getContactId());
+        }
+        if(customerDTO.getOrdersId() != null){
+            if (!customerDTO.getOrdersId().isEmpty()){
+               orders = fillOrdersList(customerDTO.getOrdersId());
+            }
+        }
+
         pulledCustomer.setFirstName(customerDTO.getFirstName());
         pulledCustomer.setLastName(customerDTO.getLastName());
-        pulledCustomer.setAdress(adressRepository.getOne(customerDTO.getAdressId()));
-        pulledCustomer.setContact(contactRepository.getOne(customerDTO.getContactId()));
-        pulledCustomer.setOrders(fillOrdersList(customerDTO.getOrdersId()));
+        pulledCustomer.setAdress(adress);
+        pulledCustomer.setContact(contact);
+        pulledCustomer.setOrders(orders);
         customerRepository.save(pulledCustomer);
         return id;
     }
@@ -61,12 +79,8 @@ public class CustomerCRUDService implements CRUDService<CustomerDTO> {
 
     private List<Order> fillOrdersList(List<Integer> indexes) {
         List<Order> orders = new ArrayList<>();
-
-        for (Integer i : indexes
-        ) {
-            orders.add(orderRepository.getOne(i));
-
-        }
+        for (Integer i : indexes)
+        { orders.add(orderRepository.getOne(i)); }
         return orders;
     }
 }
