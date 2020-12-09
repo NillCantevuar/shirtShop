@@ -36,15 +36,28 @@ public class ContactCRUDService implements CRUDService<ContactDTO> {
 
     @Override
     public Integer update(ContactDTO contact, Integer id) {
+
         Contact pulledContact = contactRepository.getOne(id);
+
+        if(contact.getCustomerId() != null) {
+            pulledContact.setPhoneNumber1(contact.getPhoneNumber1());
+            pulledContact.setPhoneNumber2(contact.getPhoneNumber2());
+            pulledContact.setEmail(contact.getEmail());
+            pulledContact.setWww(contact.getWww());
+            pulledContact.setFax(contact.getFax());
+            pulledContact.setCustomer(customerRepository.getOne(contact.getCustomerId()));
+            contactRepository.save(pulledContact);
+            return id;
+        }
         pulledContact.setPhoneNumber1(contact.getPhoneNumber1());
         pulledContact.setPhoneNumber2(contact.getPhoneNumber2());
         pulledContact.setEmail(contact.getEmail());
         pulledContact.setWww(contact.getWww());
         pulledContact.setFax(contact.getFax());
-        pulledContact.setCustomer(customerRepository.getOne(contact.getCustomerId()));
+        pulledContact.setCustomer(null);
         contactRepository.save(pulledContact);
         return id;
+
     }
 
     @Override

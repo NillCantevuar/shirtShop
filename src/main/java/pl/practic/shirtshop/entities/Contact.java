@@ -35,14 +35,25 @@ public class Contact {
     @OneToOne(mappedBy = "contact")
     private Customer customer;
 
-    public Contact(Integer id, String phoneNumber1, String phoneNumber2, String email, String www, String fax, Customer customer) {
+    public Contact(String phoneNumber1, String phoneNumber2, String email, String www, String fax, Customer customer) {
+       this.phoneNumber1 = phoneNumber1;
+       this.phoneNumber2 = phoneNumber2;
+       this.email = email;
+       this.www = www;
+       this.fax = fax;
+       this.customer = customer;
+
+
     }
     public Contact (){
 
     }
 
     public ContactDTO toDTO() {
-        return new ContactDTO(id, phoneNumber1, phoneNumber2, email, www, fax, customer.getId());
+        if(customer != null) {
+            return new ContactDTO(id, phoneNumber1, phoneNumber2, email, www, fax, customer.getId());
+        }
+        return new ContactDTO(id, phoneNumber1, phoneNumber2, email, www, fax, null);
     }
 
 

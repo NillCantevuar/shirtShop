@@ -78,7 +78,7 @@ public class ContactCRUDServiceTest {
         ContactDTO contactDTO = contactAbility.generateOneContactDTO();
         contactDTO.setCustomerId(savedCustomerId);
         //when
-        Integer idOfSavedContact = customerCRUDService.save(customerDTO);
+        Integer idOfSavedContact = contactCRUDService.save(contactDTO);
         ContactDTO pulledContact = contactCRUDService.find(idOfSavedContact);
         //then
         Assert.assertEquals(contactDTO.getEmail(), pulledContact.getEmail());
@@ -112,7 +112,7 @@ public class ContactCRUDServiceTest {
     }
     @Test
     @Transactional
-    public void shouldUpdateAdressWithCustomer_CompareFields_U() {
+    public void shouldUpdateContactWithCustomer_CompareFields_U() {
         //given
         CustomerDTO customer = customerAbility.generateOneCustomerDTO();
         Integer savedCustomerId = customerCRUDService.save(customer);
@@ -125,7 +125,7 @@ public class ContactCRUDServiceTest {
         //when
         Integer updateId = contactCRUDService.update(updatingContact,savedId);
 
-        ContactDTO pulledContact = contactCRUDService.find(savedCustomerId);
+        ContactDTO pulledContact = contactCRUDService.find(savedId);
         //then
         Assert.assertEquals(updatingContact.getWww(), pulledContact.getWww());
 
