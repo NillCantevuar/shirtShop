@@ -32,7 +32,10 @@ public class OrderLine {
     @Column
     private Integer quantity;
 
-    public OrderLine(Integer id, Product product, Order order, Integer quantity) {
+    public OrderLine(Product product, Order order, Integer quantity) {
+        this.product = product;
+        this.order = order;
+        this.quantity = quantity;
     }
     public OrderLine(){
 

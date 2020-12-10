@@ -1,5 +1,6 @@
 package pl.practic.shirtshop.mappers;
 
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.practic.shirtshop.dto.*;
@@ -105,10 +106,20 @@ public class DTOMapper {
     }
 
     public  OrderLine fromOrderLineDTO(OrderLineDTO dto) {
-        return new OrderLine(dto.getId(),
-                productRepository.getOne(dto.getProductId()),//TODO
-                orderRepository.getOne(dto.getOrderId()),//TODO
-                dto.getQuantity());//TODO
+
+        Product product =null;
+        Order order = null;
+
+        if (dto.getProductId() != null){
+            product =  productRepository.getOne(dto.getProductId());
+        }
+        if(dto.getOrderId()!=null){
+           order = orderRepository.getOne(dto.getOrderId());
+        }
+        return new OrderLine(
+                product,
+                order,
+                dto.getQuantity());
 
     }
     public  Product fromProductDTO(ProductDTO dto) {
