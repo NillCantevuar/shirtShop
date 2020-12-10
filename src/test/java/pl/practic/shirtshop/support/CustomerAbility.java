@@ -20,12 +20,52 @@ public class CustomerAbility {
         Customer customer = new Customer();
         customer.setFirstName("Jakub");
         customer.setLastName("Moder");
+        customer.setContact(null);
+        customer.setAdress(null);
+        return customer;
+
+    }
+    public CustomerDTO generateOneCustomerDTO(){
+
+        CustomerDTO customer = new CustomerDTO();
+        customer.setFirstName("Jakub");
+        customer.setLastName("Moder");
+        customer.setContactId(null);
+        customer.setAdressId(null);
+        return customer;
+
+    }
+    public Customer generateSecondCustomer(){
+
+        Customer customer = new Customer();
+        customer.setFirstName("Pierre-Emile");
+        customer.setLastName("Hojbjerg");
+        customer.setContact(null);
+        customer.setAdress(null);
+        return customer;
+
+    }
+    public CustomerDTO generateSecondCustomerDTO(){
+
+        CustomerDTO customer = new CustomerDTO();
+        customer.setFirstName("Pierre-Emile");
+        customer.setLastName("Hojbjerg");
+        customer.setContactId(null);
+        customer.setAdressId(null);
+        return customer;
+
+    }
+    public Customer generateOneCustomerWithContactAndAdress(){
+
+        Customer customer = new Customer();
+        customer.setFirstName("Jakub");
+        customer.setLastName("Moder");
         customer.setContact(contactAbility.generateOneContact());
         customer.setAdress(adressAbility.generateOneAdress());
         return customer;
 
     }
-    public CustomerDTO generateOneCustomerDTO(){
+    public CustomerDTO generateOneCustomerDTOWithContactAndAdress(){
 
         CustomerDTO customer = new CustomerDTO();
         customer.setFirstName("Jakub");
@@ -35,7 +75,7 @@ public class CustomerAbility {
         return customer;
 
     }
-    public Customer generateSecondCustomer(){
+    public Customer generateSecondCustomerWithContactAndAdress(){
 
         Customer customer = new Customer();
         customer.setFirstName("Pierre-Emile");
@@ -45,7 +85,7 @@ public class CustomerAbility {
         return customer;
 
     }
-    public CustomerDTO generateSecondCustomerDTO(){
+    public CustomerDTO generateSecondCustomerDTOWithContactAndAdress(){
 
         CustomerDTO customer = new CustomerDTO();
         customer.setFirstName("Pierre-Emile");

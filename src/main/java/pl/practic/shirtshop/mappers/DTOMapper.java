@@ -112,13 +112,25 @@ public class DTOMapper {
 
     }
     public  Product fromProductDTO(ProductDTO dto) {
-        return new Product(dto.getId(),
+
+        if (dto.getOrderLinesId() != null){
+            if (!dto.getOrderLinesId().isEmpty()){
+                return new Product(
+                        ProductType.valueOf(dto.getType()),
+                        dto.getBrand(),
+                        dto.getPrice(),
+                        dto.getName(),
+                        dto.getStock(),
+                        fillOrderLinesList(dto.getOrderLinesId()));
+            }
+        }
+        return new Product(
                 ProductType.valueOf(dto.getType()),
                 dto.getBrand(),
                 dto.getPrice(),
                 dto.getName(),
                 dto.getStock(),
-                fillOrderLinesList(dto.getOrderLineId())); //TODO
+               null);
     }
 
     private List<Order> fillOrdersList(List<Integer> indexes) {

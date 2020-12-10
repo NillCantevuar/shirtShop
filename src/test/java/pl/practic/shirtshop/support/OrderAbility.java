@@ -17,7 +17,7 @@ public class OrderAbility {
 
         Order order = new Order();
         order.setStatus("SEND");
-        order.setCustomer(customerAbility.generateOneCustomer());
+        order.setCustomer(null);
         order.setDateTime(LocalDateTime.MIN);
 
         return order;
@@ -26,6 +26,60 @@ public class OrderAbility {
 
         OrderDTO order = new OrderDTO();
         order.setStatus("SEND");
+        order.setCustomerId(null);
+        order.setDateTime(LocalDateTime.MIN);
+
+        return order;
+    }
+    public Order generateSecondOrder(){
+
+        Order order = new Order();
+        order.setStatus("OK");
+        order.setCustomer(null);
+        order.setDateTime(LocalDateTime.MIN);
+
+        return order;
+    }
+    public OrderDTO generateSecondOrderDTO(){
+
+        OrderDTO order = new OrderDTO();
+        order.setStatus("OK");
+        order.setCustomerId(null);
+        order.setDateTime(LocalDateTime.MIN);
+
+        return order;
+    }
+    public Order generateOneOrderWithCustomer(){
+
+        Order order = new Order();
+        order.setStatus("SEND");
+        order.setCustomer(customerAbility.generateOneCustomer());
+        order.setDateTime(LocalDateTime.MIN);
+
+        return order;
+    }
+    public OrderDTO generateOneOrderDTOWithCustomer(){
+
+        OrderDTO order = new OrderDTO();
+        order.setStatus("SEND");
+        order.setCustomerId(customerAbility.generateOneCustomer().getId());
+        order.setDateTime(LocalDateTime.MIN);
+
+        return order;
+    }
+    public Order generateSecondOrderWithCustomer(){
+
+        Order order = new Order();
+        order.setStatus("OK");
+        order.setCustomer(customerAbility.generateOneCustomer());
+        order.setDateTime(LocalDateTime.MIN);
+
+        return order;
+    }
+    public OrderDTO generateSecondOrderDTOWithCustomer(){
+
+        OrderDTO order = new OrderDTO();
+        order.setStatus("OK");
         order.setCustomerId(customerAbility.generateOneCustomer().getId());
         order.setDateTime(LocalDateTime.MIN);
 

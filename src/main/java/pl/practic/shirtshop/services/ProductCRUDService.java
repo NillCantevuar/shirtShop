@@ -39,15 +39,31 @@ public class ProductCRUDService implements CRUDService<ProductDTO> {
 
     @Override
     public Integer update(ProductDTO productDTO, Integer id) {
+
+        if (productDTO.getOrderLinesId() != null) {
+            if (!productDTO.getOrderLinesId().isEmpty()) {
+
+                Product pulledProduct = productRepository.getOne(id);
+                pulledProduct.setName(productDTO.getName());
+                pulledProduct.setStock(productDTO.getStock());
+                pulledProduct.setPrice(productDTO.getPrice());
+                pulledProduct.setBrand(productDTO.getBrand());
+                pulledProduct.setType(ProductType.valueOf(productDTO.getType()));
+                pulledProduct.setOrderLines(fillOrderLinesList(productDTO.getOrderLinesId()));
+                productRepository.save(pulledProduct);
+                return id;
+            }
+        }
         Product pulledProduct = productRepository.getOne(id);
         pulledProduct.setName(productDTO.getName());
         pulledProduct.setStock(productDTO.getStock());
         pulledProduct.setPrice(productDTO.getPrice());
         pulledProduct.setBrand(productDTO.getBrand());
         pulledProduct.setType(ProductType.valueOf(productDTO.getType()));
-        pulledProduct.setOrderLine(fillOrderLinesList(productDTO.getOrderLineId()));
+        pulledProduct.setOrderLines(null);
         productRepository.save(pulledProduct);
         return id;
+
     }
 
     @Override

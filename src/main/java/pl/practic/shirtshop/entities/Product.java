@@ -2,8 +2,6 @@ package pl.practic.shirtshop.entities;
 
 
 import lombok.Data;
-import pl.practic.shirtshop.dto.ContactDTO;
-import pl.practic.shirtshop.dto.CustomerDTO;
 import pl.practic.shirtshop.dto.ProductDTO;
 import pl.practic.shirtshop.enums.ProductType;
 
@@ -37,19 +35,26 @@ public class Product {
     private Integer stock;
 
     @OneToMany(mappedBy = "product")
-    private List<OrderLine> orderLine;
+    private List<OrderLine> orderLines;
 
-    public Product(Integer id, ProductType type, String brand, Integer price, String name, Integer stock, List<OrderLine> orderLines) {
+    public Product(ProductType type, String brand, Integer price, String name, Integer stock, List<OrderLine> orderLines) {
+        this.type = type;
+        this.brand = brand;
+        this.price = price;
+        this.name = name;
+        this.stock = stock;
+        this.orderLines = orderLines;
     }
-    public Product(){
-
-    }
+    public Product(){}
 
     public ProductDTO toDTO() {
-        return new ProductDTO(id, type, brand, price, name, stock,
-                orderLine.stream()
-                        .map(OrderLine::getId)
-                        .collect(Collectors.toList()));
+        if(orderLines != null) {
+            return new ProductDTO(id, type, brand, price, name, stock,
+                    orderLines.stream()
+                            .map(OrderLine::getId)
+                            .collect(Collectors.toList()));
+        }
+        return new ProductDTO(id,type,brand,price,name,stock,null);
     }
 
 

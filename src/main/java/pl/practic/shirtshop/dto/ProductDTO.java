@@ -1,11 +1,8 @@
 package pl.practic.shirtshop.dto;
 
 
-import lombok.Data;
-import pl.practic.shirtshop.entities.OrderLine;
 import pl.practic.shirtshop.enums.ProductType;
 
-import javax.persistence.*;
 import java.util.List;
 
 public class ProductDTO {
@@ -22,19 +19,19 @@ public class ProductDTO {
 
     private Integer stock;
 
-    private List<Integer> orderLineId;
+    private List<Integer> orderLinesId;
 
     public ProductDTO() {
     }
 
-    public ProductDTO(Integer id, ProductType type, String brand, Integer price, String name, Integer stock, List<Integer> orderLineId) {
+    public ProductDTO(Integer id, ProductType type, String brand, Integer price, String name, Integer stock, List<Integer> orderLinesId) {
         this.id = id;
         this.type = type.name();
         this.brand = brand;
         this.price = price;
         this.name = name;
         this.stock = stock;
-        this.orderLineId = orderLineId;
+        this.orderLinesId = orderLinesId;
     }
 
     public Integer getId() {
@@ -85,11 +82,11 @@ public class ProductDTO {
         this.stock = stock;
     }
 
-    public List<Integer> getOrderLineId() {
-        return orderLineId;
+    public List<Integer> getOrderLinesId() {
+        return orderLinesId;
     }
 
-    public void setOrderLineId(List<Integer> orderLineId) {
-        this.orderLineId = orderLineId;
+    public void setOrderLinesId(List<Integer> orderLinesId) {
+        this.orderLinesId = orderLinesId;
     }
 }
