@@ -37,14 +37,25 @@ public class OrderLine {
         this.order = order;
         this.quantity = quantity;
     }
-    public OrderLine(){
+
+    public OrderLine() {
 
     }
 
     public OrderLineDTO toDTO() {
-        return new OrderLineDTO(id, product.getId(), order.getId(), quantity);
-    }
 
+        Integer orderId = null;
+        Integer productId = null;
+
+        if (order != null) {
+            orderId = order.getId();
+        }
+        if (product != null) {
+            productId = product.getId();
+        }
+
+        return new OrderLineDTO(id, productId, orderId, quantity);
+    }
 
 
 }

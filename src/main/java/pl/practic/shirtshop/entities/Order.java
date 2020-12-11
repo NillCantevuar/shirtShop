@@ -35,17 +35,38 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderLine> orderLines;
 
-    public Order(Integer id, Customer customer, LocalDateTime dateTime, String status, List<OrderLine> orderLines) {
+    public Order( Customer customer, LocalDateTime dateTime, String status, List<OrderLine> orderLines) {
+        this.customer = customer;
+        this.dateTime = dateTime;
+        this.status = status;
+        this.orderLines = orderLines;
+
+
     }
     public Order(){
 
     }
 
     public OrderDTO toDTO() {
-        return new OrderDTO(id, customer.getId(), dateTime, status,
-                orderLines.stream()
+
+        Integer customerId = null;
+        List<Integer> orderLinesIds = null;
+
+        if (customer != null){
+            customerId = customer.getId();
+        }
+        if (orderLines!=null){
+            if(!orderLines.isEmpty()){
+                orderLinesIds = orderLines.stream()
                         .map(OrderLine::getId)
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList());
+            }
+        }
+
+
+
+        return new OrderDTO(id, customerId, dateTime, status,
+                orderLinesIds);
     }
 
 

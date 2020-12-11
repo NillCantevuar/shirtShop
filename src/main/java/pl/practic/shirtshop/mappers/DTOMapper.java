@@ -97,11 +97,24 @@ public class DTOMapper {
 
 
     public  Order fromOrderDTO(OrderDTO dto) {
-        return new Order(dto.getId(),
-                customerRepository.getOne(dto.getCustomerId()),
+
+        Customer customer = null;
+        List<OrderLine> orderLines = null;
+
+        if (dto.getCustomerId() != null){
+            customer = customerRepository.getOne(dto.getCustomerId());
+        }
+        if(dto.getOrderLinesId() != null){
+            if (!dto.getOrderLinesId().isEmpty()){
+               orderLines = fillOrderLinesList(dto.getOrderLinesId());
+            }
+        }
+
+
+        return new Order(customer,
                 dto.getDateTime(),
                 dto.getStatus(),
-                fillOrderLinesList(dto.getOrderLinesId()));
+                orderLines);
 
     }
 
