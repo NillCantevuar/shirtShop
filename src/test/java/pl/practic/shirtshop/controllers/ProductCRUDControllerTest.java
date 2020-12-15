@@ -16,8 +16,7 @@ import pl.practic.shirtshop.support.ProductAbility;
 
 import javax.transaction.Transactional;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -66,5 +65,34 @@ public class ProductCRUDControllerTest {
                 contentJson, ProductDTO.class);
         Assert.assertEquals(productCRUDService.find(savedId).getName(),productDTORecived.getName());
 
+    }
+
+    @Test
+    @Transactional
+    public  void shouldDeleteProductFormDB()throws Exception{
+        //given
+        Integer savedId = productAbility.saveOneProductToDB();
+        //when
+        MvcResult result = mockMvc.perform(delete("api/product/"+savedId))
+                .andExpect(status().isOk()).andReturn();
+        //then
+        Assert.assertThrows(NullPointerException.class,()->productCRUDService.find(savedId));
+    }
+
+    @Test
+    @Transactional
+    public void shouldUpadateProductInDB() throws  Exception{
+        //given
+        Integer savedId = productAbility.saveOneProductToDB();
+        ProductDTO updatingProductDTO = productAbility.generateOneProduct2DTO();
+        String productJson = objectMapper.writeValueAsString(updatingProductDTO);
+        //when
+        MvcResult result = mockMvc.perform(patch("api/product"+savedId)
+                .contentType("application/json")
+                .content(productJson))
+                .andExpect(status().isOk()).andReturn();
+        //then
+        Assert.assertEquals(productCRUDService.find(Integer.valueOf(result.getResponse().getContentAsString())).getBrand(),
+                updatingProductDTO.getBrand());
     }
 }
