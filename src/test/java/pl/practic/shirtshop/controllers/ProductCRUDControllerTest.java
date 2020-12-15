@@ -16,6 +16,7 @@ import pl.practic.shirtshop.support.ProductAbility;
 
 import javax.transaction.Transactional;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -49,6 +50,21 @@ public class ProductCRUDControllerTest {
         Assert.assertEquals(productCRUDService.find(Integer.valueOf(result.getResponse().getContentAsString())).getBrand(),
                 productDTO.getBrand());
 
+
+    }
+    @Test
+    @Transactional
+    public void shouldGetProductFromDB() throws Exception {
+        //given
+        Integer savedId = productAbility.saveOneProductToDB();
+        //when
+        MvcResult result = mockMvc.perform(get("/api/product/"+savedId))
+                .andExpect(status().isOk()).andReturn();
+        //then
+        String contentJson =result.getResponse().getContentAsString();
+        ProductDTO productDTORecived =objectMapper.readValue(
+                contentJson, ProductDTO.class);
+        Assert.assertEquals(productCRUDService.find(savedId).getName(),productDTORecived.getName());
 
     }
 }
