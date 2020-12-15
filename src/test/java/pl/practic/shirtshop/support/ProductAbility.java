@@ -1,12 +1,18 @@
 package pl.practic.shirtshop.support;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.practic.shirtshop.dto.ProductDTO;
 import pl.practic.shirtshop.entities.Product;
 import pl.practic.shirtshop.enums.ProductType;
+import pl.practic.shirtshop.repositories.ProductRepository;
+import pl.practic.shirtshop.services.ProductCRUDService;
 
 @Component
 public class ProductAbility {
+
+    @Autowired
+    ProductCRUDService productCRUDService;
 
     public Product generateOneProduct1(){
         Product product = new Product();
@@ -68,4 +74,8 @@ public class ProductAbility {
 
         return product;
     }
+    public  Integer saveOneProductToDB(){
+        return productCRUDService.save(generateOneProduct1DTO());
+    }
+
 }

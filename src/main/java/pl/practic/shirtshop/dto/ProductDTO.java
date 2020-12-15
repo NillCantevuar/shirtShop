@@ -24,9 +24,9 @@ public class ProductDTO {
     public ProductDTO() {
     }
 
-    public ProductDTO(Integer id, ProductType type, String brand, Integer price, String name, Integer stock, List<Integer> orderLinesId) {
+    public ProductDTO(Integer id,String type, String brand, Integer price, String name, Integer stock, List<Integer> orderLinesId) {
         this.id = id;
-        this.type = type.name();
+        this.type = type;
         this.brand = brand;
         this.price = price;
         this.name = name;

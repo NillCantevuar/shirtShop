@@ -6,14 +6,11 @@ import pl.practic.shirtshop.requests.ProductAddRequest;
 public class RequestDTOMapper {
 
 
-    public ProductDTO productAddRequestToDTO(ProductAddRequest productAddRequest){
+    public static ProductDTO productAddRequestToDTO(ProductAddRequest productAddRequest){
 
-        ProductDTO productDTO = new ProductDTO(
+        return new ProductDTO(
                 null,productAddRequest.getType(),productAddRequest.getBrand(),productAddRequest.getPrice(),productAddRequest.getName(),
                 productAddRequest.getStock(),null);
-        )
-
-
     }
 
 

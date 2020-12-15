@@ -49,12 +49,12 @@ public class Product {
 
     public ProductDTO toDTO() {
         if(orderLines != null) {
-            return new ProductDTO(id, type, brand, price, name, stock,
+            return new ProductDTO(id, type.name(), brand, price, name, stock,
                     orderLines.stream()
                             .map(OrderLine::getId)
                             .collect(Collectors.toList()));
         }
-        return new ProductDTO(id,type,brand,price,name,stock,null);
+        return new ProductDTO(id,type.name(),brand,price,name,stock,null);
     }
 
 

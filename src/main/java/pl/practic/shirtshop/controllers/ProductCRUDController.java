@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.practic.shirtshop.dto.ProductDTO;
+import pl.practic.shirtshop.mappers.RequestDTOMapper;
 import pl.practic.shirtshop.requests.ProductAddRequest;
 import pl.practic.shirtshop.services.ProductCRUDService;
 
@@ -21,9 +22,8 @@ public class ProductCRUDController {
 
 
     @PostMapping
-    public Integer addProduct(@RequestBody ProductAddRequest productDTO){
-
-
+    public Integer addProduct(@RequestBody ProductAddRequest productAddRequest){
+        return productCRUDService.save(RequestDTOMapper.productAddRequestToDTO(productAddRequest));
     }
 
 
