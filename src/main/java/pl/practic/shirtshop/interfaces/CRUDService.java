@@ -1,6 +1,10 @@
 package pl.practic.shirtshop.interfaces;
 
+import java.util.List;
+
 public interface CRUDService<D> {
+
+    public List<D> findAll();
 
     public D find(Integer id);
 

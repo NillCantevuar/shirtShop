@@ -6,6 +6,7 @@ import pl.practic.shirtshop.dto.OrderDTO;
 import pl.practic.shirtshop.entities.Customer;
 import pl.practic.shirtshop.entities.Order;
 import pl.practic.shirtshop.entities.OrderLine;
+import pl.practic.shirtshop.entities.Product;
 import pl.practic.shirtshop.interfaces.CRUDService;
 import pl.practic.shirtshop.mappers.DTOMapper;
 import pl.practic.shirtshop.repositories.CustomerRepository;
@@ -14,6 +15,7 @@ import pl.practic.shirtshop.repositories.OrderRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderCRUDService implements CRUDService<OrderDTO> {
@@ -25,6 +27,11 @@ public class OrderCRUDService implements CRUDService<OrderDTO> {
     CustomerRepository customerRepository;
     @Autowired
     DTOMapper dtoMapper;
+
+    @Override
+    public List<OrderDTO> findAll() {
+        return orderRepository.findAll().stream().map(Order::toDTO).collect(Collectors.toList());
+    }
 
     @Override
     public OrderDTO find(Integer id) {

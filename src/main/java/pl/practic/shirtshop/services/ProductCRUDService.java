@@ -13,6 +13,7 @@ import pl.practic.shirtshop.repositories.ProductRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductCRUDService implements CRUDService<ProductDTO> {
@@ -27,9 +28,15 @@ public class ProductCRUDService implements CRUDService<ProductDTO> {
     DTOMapper dtoMapper;
 
     @Override
+    public List<ProductDTO> findAll() {
+        return productRepository.findAll().stream().map(Product::toDTO).collect(Collectors.toList());
+    }
+
+    @Override
     public ProductDTO find(Integer id) {
         return productRepository.getOne(id).toDTO();
     }
+
 
     @Override
     public Integer save(ProductDTO productDTO) {

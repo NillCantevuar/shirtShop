@@ -4,10 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.practic.shirtshop.dto.ContactDTO;
 import pl.practic.shirtshop.entities.Contact;
+import pl.practic.shirtshop.entities.Product;
 import pl.practic.shirtshop.interfaces.CRUDService;
 import pl.practic.shirtshop.mappers.DTOMapper;
 import pl.practic.shirtshop.repositories.ContactRepository;
 import pl.practic.shirtshop.repositories.CustomerRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ContactCRUDService implements CRUDService<ContactDTO> {
@@ -21,6 +25,11 @@ public class ContactCRUDService implements CRUDService<ContactDTO> {
     @Autowired
     DTOMapper dtoMapper;
 
+
+    @Override
+    public List<ContactDTO> findAll() {
+        return contactRepository.findAll().stream().map(Contact::toDTO).collect(Collectors.toList());
+    }
 
     @Override
     public ContactDTO find(Integer id) {

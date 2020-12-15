@@ -16,6 +16,8 @@ import pl.practic.shirtshop.support.ProductAbility;
 
 import javax.transaction.Transactional;
 
+import java.util.List;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -66,6 +68,25 @@ public class ProductCRUDControllerTest {
         Assert.assertEquals(productCRUDService.find(savedId).getName(),productDTORecived.getName());
 
     }
+    @Test
+    @Transactional
+    public void shouldGetAllProductsFromDB() throws Exception {
+        //given
+        Integer savedId1 = productAbility.saveOneProductToDB();
+        Integer savedId2 = productAbility.saveOneProductToDB();
+        Integer savedId3 = productAbility.saveOneProductToDB();
+        //when
+        MvcResult result = mockMvc.perform(get("/api/product/"))
+                .andExpect(status().isOk()).andReturn();
+        //then
+        String contentJson =result.getResponse().getContentAsString();
+        List<ProductDTO> productsDTOsRecived =objectMapper.readValue(
+                contentJson, objectMapper.getTypeFactory().constructCollectionType(List.class,ProductDTO.class));
+
+
+       // Assert.assertEquals(productCRUDService.findAll().getName(),productDTORecived.getName());
+
+    }
 
     @Test
     @Transactional
@@ -95,4 +116,7 @@ public class ProductCRUDControllerTest {
         Assert.assertEquals(productCRUDService.find(Integer.valueOf(result.getResponse().getContentAsString())).getBrand(),
                 updatingProductDTO.getBrand());
     }
+
+
+
 }

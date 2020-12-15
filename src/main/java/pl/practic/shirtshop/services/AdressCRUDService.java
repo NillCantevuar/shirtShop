@@ -4,10 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.practic.shirtshop.dto.AdressDTO;
 import pl.practic.shirtshop.entities.Adress;
+import pl.practic.shirtshop.entities.Product;
 import pl.practic.shirtshop.interfaces.CRUDService;
 import pl.practic.shirtshop.mappers.DTOMapper;
 import pl.practic.shirtshop.repositories.AdressRepository;
 import pl.practic.shirtshop.repositories.CustomerRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AdressCRUDService implements CRUDService<AdressDTO> {
@@ -20,6 +24,11 @@ public class AdressCRUDService implements CRUDService<AdressDTO> {
 
     @Autowired
     DTOMapper dtoMapper;
+
+    @Override
+    public List<AdressDTO> findAll() {
+        return adressRepository.findAll().stream().map(Adress::toDTO).collect(Collectors.toList());
+    }
 
     @Override
     public AdressDTO find(Integer id) {
