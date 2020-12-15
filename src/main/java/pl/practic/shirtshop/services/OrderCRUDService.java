@@ -3,6 +3,7 @@ package pl.practic.shirtshop.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.practic.shirtshop.dto.OrderDTO;
+import pl.practic.shirtshop.entities.Customer;
 import pl.practic.shirtshop.entities.Order;
 import pl.practic.shirtshop.entities.OrderLine;
 import pl.practic.shirtshop.interfaces.CRUDService;
@@ -39,11 +40,23 @@ public class OrderCRUDService implements CRUDService<OrderDTO> {
 
     @Override
     public Integer update(OrderDTO orderDTO, Integer id) {
-         Order pulledOrder = orderRepository.getOne(id);
+        Customer customer = null;
+        List<OrderLine> orderLines = null;
+        Order pulledOrder = orderRepository.getOne(id);
+
+        if (orderDTO.getCustomerId() != null){
+            customer = customerRepository.getOne(orderDTO.getCustomerId());
+        }
+        if(orderDTO.getOrderLinesId() != null){
+            if (!orderDTO.getOrderLinesId().isEmpty()){
+                orderLines = fillOrderLinesList(orderDTO.getOrderLinesId());
+            }
+        }
+
         pulledOrder.setDateTime(orderDTO.getDateTime());
         pulledOrder.setStatus(orderDTO.getStatus());
-        pulledOrder.setCustomer(customerRepository.getOne(orderDTO.getId()));
-        pulledOrder.setOrderLines(fillOrderLinesList(orderDTO.getOrderLinesId()));
+        pulledOrder.setCustomer(customer);
+        pulledOrder.setOrderLines(orderLines);
         orderRepository.save(pulledOrder);
         return id;
     }

@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.practic.shirtshop.dto.CustomerDTO;
@@ -39,7 +40,7 @@ public class OrderCrudServiceTest {
 
     @Test
     @Transactional
-    public void shouldSaveAndFindOrderLineWithProductAndOrderUsignId_CompareFields_CR() {
+    public void shouldSaveAndFindOrderWithCustomerAndOrderLineUsignId_CompareFields_CR() {
         //given
         CustomerDTO customerDTO = customerAbility.generateOneCustomerDTO();
         Integer savedCustomerId = customerCRUDService.save(customerDTO);
@@ -64,7 +65,7 @@ public class OrderCrudServiceTest {
     }
     @Test
     @Transactional
-    public void shouldUpdateOrderLineWithOrderAndProduct_CompareFields_U() {
+    public void shouldUpdateOrderWithOrderLineAndCustomer_CompareFields_U() {
         //given
         CustomerDTO customerDTO = customerAbility.generateOneCustomerDTO();
         Integer savedCustomerId = customerCRUDService.save(customerDTO);
@@ -90,10 +91,11 @@ public class OrderCrudServiceTest {
         orderCRUDService.update(updatingOrder, savedOriginalOrderId);
         OrderDTO pulledOrderDTO = orderCRUDService.find(savedOriginalOrderId);
         //then
-        Assert.assertEquals(orderDTO.getStatus(), pulledOrderDTO.getStatus());
-        Assert.assertEquals(orderLineCRUDService.find(orderDTO.getOrderLinesId().get(0)).getQuantity(),
+        Assert.assertEquals(updatingOrder.getStatus(), pulledOrderDTO.getStatus());
+
+        Assert.assertEquals(orderLineCRUDService.find(updatingOrder.getOrderLinesId().get(0)).getQuantity(),
                 orderLineCRUDService.find(pulledOrderDTO.getOrderLinesId().get(0)).getQuantity());
-        Assert.assertEquals(customerCRUDService.find(orderDTO.getCustomerId()).getFirstName(),
+        Assert.assertEquals(customerCRUDService.find(updatingOrder.getCustomerId()).getFirstName(),
                 customerCRUDService.find(pulledOrderDTO.getCustomerId()).getFirstName());
 
 
@@ -101,7 +103,7 @@ public class OrderCrudServiceTest {
     }
     @Test
     @Transactional
-    public void shouldSaveAndDeleteOrderLineUsignId_isNull_D() {
+    public void shouldSaveAndDeleteOrderUsignId_isNull_D() {
         //given
         CustomerDTO customerDTO = customerAbility.generateOneCustomerDTO();
         Integer savedCustomerId = customerCRUDService.save(customerDTO);
@@ -114,9 +116,9 @@ public class OrderCrudServiceTest {
         orderDTO.setCustomerId(savedCustomerId);
         Integer savedId = orderCRUDService.save(orderDTO);
         //when
-        orderLineCRUDService.delete(savedId);
+        orderCRUDService.delete(savedId);
         //then
-        Assert.assertThrows(JpaObjectRetrievalFailureException.class,()->orderLineCRUDService.find(savedOrderLineId));
+        Assert.assertThrows(JpaObjectRetrievalFailureException.class,()->orderCRUDService.find(savedId));
 
 
     }
