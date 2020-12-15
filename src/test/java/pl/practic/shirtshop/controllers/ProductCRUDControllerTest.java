@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -84,7 +85,9 @@ public class ProductCRUDControllerTest {
                 contentJson, objectMapper.getTypeFactory().constructCollectionType(List.class,ProductDTO.class));
 
 
-       // Assert.assertEquals(productCRUDService.findAll().getName(),productDTORecived.getName());
+        Assert.assertEquals(productCRUDService.find(savedId1).getName(),productsDTOsRecived.get(0).getName());
+        Assert.assertEquals(productCRUDService.find(savedId2).getName(),productsDTOsRecived.get(1).getName());
+        Assert.assertEquals(productCRUDService.find(savedId3).getName(),productsDTOsRecived.get(2).getName());
 
     }
 
@@ -94,10 +97,10 @@ public class ProductCRUDControllerTest {
         //given
         Integer savedId = productAbility.saveOneProductToDB();
         //when
-        MvcResult result = mockMvc.perform(delete("api/product/"+savedId))
-                .andExpect(status().isOk()).andReturn();
+         mockMvc.perform(delete("/api/product/"+savedId))
+                .andExpect(status().isOk());
         //then
-        Assert.assertThrows(NullPointerException.class,()->productCRUDService.find(savedId));
+        Assert.assertThrows(JpaObjectRetrievalFailureException.class,()->productCRUDService.find(savedId));
     }
 
     @Test
@@ -108,7 +111,7 @@ public class ProductCRUDControllerTest {
         ProductDTO updatingProductDTO = productAbility.generateOneProduct2DTO();
         String productJson = objectMapper.writeValueAsString(updatingProductDTO);
         //when
-        MvcResult result = mockMvc.perform(patch("api/product"+savedId)
+        MvcResult result = mockMvc.perform(patch("/api/product/"+savedId)
                 .contentType("application/json")
                 .content(productJson))
                 .andExpect(status().isOk()).andReturn();

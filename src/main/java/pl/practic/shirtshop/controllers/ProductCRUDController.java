@@ -9,6 +9,8 @@ import pl.practic.shirtshop.mappers.RequestDTOMapper;
 import pl.practic.shirtshop.requests.ProductAddRequest;
 import pl.practic.shirtshop.services.ProductCRUDService;
 
+import java.util.List;
+
 @RestController
 @Transactional
 @RequestMapping("/api/product")
@@ -23,10 +25,24 @@ public class ProductCRUDController {
         return productCRUDService.save(RequestDTOMapper.productAddRequestToDTO(productAddRequest));
     }
 
-    @GetMapping
+    @GetMapping("/{findId}")
     public @ResponseBody ProductDTO getProduct(@PathVariable Integer findId){
         return productCRUDService.find(findId);
     }
 
+    @GetMapping
+    public @ResponseBody List<ProductDTO> getAllProducts(){
+        return productCRUDService.findAll();
+    }
 
+    @DeleteMapping("/{deleteId}")
+    public void deleteProduct(@PathVariable Integer deleteId){
+            productCRUDService.delete(deleteId);
+    }
+
+    @PatchMapping("/{updateId}")
+    public Integer updateProduct(@PathVariable Integer updateId,@RequestBody ProductDTO productDTO){
+        return productCRUDService.update(productDTO,updateId);
+        //Zmiana RequestBody na updateProductDTO ?
+    }
 }
